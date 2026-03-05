@@ -2598,9 +2598,9 @@ function updateFolderCount() {
     return;
   }
 
-  // Show counting state
+  // Show counting state after a short delay (avoid flash for fast responses)
   totalEl.style.display = 'block';
-  txt(totalEl, 'Total folders selected: counting...');
+  const countingTimer = setTimeout(() => { txt(totalEl, 'Total folders selected: counting...'); }, 300);
 
   // Count subfolders for each checked folder
   const apiDepth = maxDepth - 1;
@@ -2608,6 +2608,7 @@ function updateFolderCount() {
   Promise.all(paths.map(p =>
     fetch('/api/count?path=' + encodeURIComponent(p) + '&depth=' + apiDepth, {signal}).then(r => r.json()).catch(() => ({count: 0}))
   )).then(counts => {
+    clearTimeout(countingTimer);
     if (signal.aborted) return;
     const subTotal = counts.reduce((sum, c) => sum + (c.count || 0), 0);
     const total = checkedCount + subTotal;
