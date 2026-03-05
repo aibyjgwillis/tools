@@ -866,10 +866,67 @@ def main():
                         help="List available Terminal.app themes and exit")
     parser.add_argument("--use-config", action="store_true",
                         help="Load settings from saved config file (~/.config/lite-tools/multiple-terminals.json)")
+    parser.add_argument("--preset", type=str, default=None,
+                        help="Load a named preset from saved config")
+    parser.add_argument("--list-presets", action="store_true",
+                        help="List available named presets and exit")
     args = parser.parse_args()
 
+    # List presets
+    if args.list_presets:
+        try:
+            with open(CONFIG_PATH, "r") as f:
+                cfg = json.load(f)
+            presets = cfg.get("presets", [])
+            if presets:
+                print("Available presets:")
+                for p in presets:
+                    details = f"{p.get('count', 3)} windows, {p.get('layout', 'side-by-side')}, {p.get('mode', 'ocean')}"
+                    print(f"  {p['name']} - {details}")
+            else:
+                print("No saved presets. Use the configurator to create presets.")
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("No saved presets. Use the configurator to create presets.")
+        sys.exit(0)
+
+    # Load named preset (overrides --use-config)
+    if args.preset:
+        try:
+            with open(CONFIG_PATH, "r") as f:
+                cfg = json.load(f)
+            presets = cfg.get("presets", [])
+            preset = next((p for p in presets if p["name"].lower() == args.preset.lower()), None)
+            if preset:
+                args.count = preset.get("count", 3)
+                args.layout = preset.get("layout", "side-by-side")
+                if preset.get("mode"):
+                    args.mode = preset["mode"]
+                if preset.get("colors"):
+                    args.colors = preset["colors"]
+                args.no_claude = preset.get("noClaude", False)
+                args.notify = preset.get("notify", False)
+                args.sound = preset.get("sound", False)
+                if preset.get("soundName"):
+                    args.sound_name = preset["soundName"]
+                if preset.get("soundVolume") is not None:
+                    args.sound_volume = float(preset["soundVolume"])
+                args.skip_perms = preset.get("skipPerms", False)
+                if preset.get("highlightColor"):
+                    args.highlight_color = preset["highlightColor"]
+                if preset.get("commands"):
+                    args.commands = preset["commands"]
+                if preset.get("include") == "all":
+                    args.include_all = True
+            else:
+                names = [p["name"] for p in presets]
+                print(f"Preset '{args.preset}' not found. Available: {', '.join(names) if names else 'none'}")
+                sys.exit(1)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print(f"No config file found. Use the configurator to create presets.")
+            sys.exit(1)
+
     # Apply saved config as defaults when --use-config is set
-    if args.use_config:
+    elif args.use_config:
         try:
             with open(CONFIG_PATH, "r") as f:
                 cfg = json.load(f)

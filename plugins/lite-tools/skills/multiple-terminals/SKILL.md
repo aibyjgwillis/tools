@@ -18,6 +18,18 @@ If the user just wants terminals opened with their preferences, run the script d
 python3 ${CLAUDE_PLUGIN_ROOT}/skills/multiple-terminals/multiple-terminals.py --use-config
 ```
 
+If the user asks to load a named preset (e.g. "use my work setup", "load coding preset"), use `--preset`:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/skills/multiple-terminals/multiple-terminals.py --preset "preset name"
+```
+
+To list available presets:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/skills/multiple-terminals/multiple-terminals.py --list-presets
+```
+
 If the user specifies parameters, parse them and run:
 
 ```bash
@@ -26,6 +38,8 @@ python3 ${CLAUDE_PLUGIN_ROOT}/skills/multiple-terminals/multiple-terminals.py --
 
 Optional flags:
 - `--use-config` to load saved settings from `~/.config/lite-tools/multiple-terminals.json`
+- `--preset "NAME"` to load a named preset from the config file
+- `--list-presets` to list available named presets
 - `--mode NAME` for a color palette (ocean, forest, sunset, berry, earth, mono, warm, cool, classic, stealth, tactical, carbon, midnight, mermaid, pastel, neutrals, mint, moody, leather, claude)
 - `--theme "NAME"` for a Terminal.app theme (Pro, Homebrew, Ocean, Red Sands, Grass, Man Page, Novel, Basic, Silver Aerogel)
 - `--colors "#hex1,#hex2,#hex3"` for custom colors
@@ -45,9 +59,9 @@ Defaults: 3 windows, side-by-side, ocean mode, claude running in each, reuses cu
 
 **Limitation:** Only detects and organizes Terminal windows on the active desktop. Windows on other macOS Spaces are ignored.
 
-## 2. Configure (only when asked)
+## 2. Configure (when the user wants to change their setup)
 
-If the user says they want to "configure", "customize", "pick colors", "set up", or "choose a layout", launch the web configurator:
+If the user says they want to "configure", "customize", "pick colors", "set up", "choose a layout", "change my setup", "edit my terminal settings", "tweak my terminals", or anything suggesting they want to visually adjust their terminal configuration, launch the web configurator:
 
 ```bash
 python3 ${CLAUDE_PLUGIN_ROOT}/skills/multiple-terminals/server.py
@@ -73,9 +87,10 @@ The `--restyle` flag skips opening new windows and instead applies the layout an
 
 ## Examples
 
-- `/multiple-terminals` - 3 side-by-side ocean terminals with claude
+- `/multiple-terminals` - launch with last saved config
 - `/multiple-terminals 4 grid ocean` - 4 ocean-themed grid terminals
-- `/multiple-terminals configure` - open the web configurator
+- `/multiple-terminals configure` or `/multiple-terminals change my setup` - open the web configurator
+- `/multiple-terminals use my work preset` - load the "work" named preset
 - `/multiple-terminals rearrange to grid` - rearrange existing windows to grid
 - `/multiple-terminals restyle to ember` - change existing windows to ember colors
 - `/multiple-terminals 2 with Pro theme` - 2 terminals using Terminal.app Pro theme

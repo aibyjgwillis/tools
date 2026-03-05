@@ -1772,6 +1772,11 @@ function detectServer() {
             buildModeSwatches();
             update();
           }
+          // Sync presets from server config
+          if (cfg && cfg.presets && cfg.presets.length > 0) {
+            try { localStorage.setItem("mt-presets", JSON.stringify(cfg.presets)); } catch(e) {}
+            renderPresets();
+          }
         })
         .catch(function() {});
     })
@@ -1792,6 +1797,17 @@ function getPresets() {
 
 function savePresets(presets) {
   try { localStorage.setItem("mt-presets", JSON.stringify(presets)); } catch(e) {}
+  // Also persist presets to server config so CLI can read them
+  if (serverAvailable) {
+    fetch("/api/config").then(function(r) { return r.json(); }).then(function(cfg) {
+      cfg.presets = presets;
+      fetch("/api/config", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(cfg)
+      });
+    }).catch(function() {});
+  }
 }
 
 function savePreset() {
