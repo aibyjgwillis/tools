@@ -778,7 +778,6 @@
       <span class="section-label" style="margin:0;">Presets</span>
       <div id="presetList" style="display:flex;gap:6px;flex-wrap:wrap;flex:1;"></div>
       <span id="presetToast" style="font-family:var(--font-mono);font-size:9px;font-weight:500;letter-spacing:0.04em;color:var(--champagne);opacity:0;transition:opacity 0.25s;white-space:nowrap;"></span>
-      <button class="apply-mode-btn" id="editPresetsBtn" onclick="toggleEditPresets()" style="white-space:nowrap;display:none;">Edit</button>
       <button class="apply-mode-btn" onclick="savePreset()" style="white-space:nowrap;">Save Preset</button>
     </div>
   </div>
@@ -1952,35 +1951,6 @@ function savePreset() {
   showPresetToast(wasOverwrite ? "Preset updated" : "Preset saved");
 }
 
-var _editingPresets = false;
-
-function toggleEditPresets() {
-  _editingPresets = !_editingPresets;
-  var btn = document.getElementById("editPresetsBtn");
-  btn.textContent = _editingPresets ? "Done" : "Edit";
-  if (_editingPresets) {
-    btn.style.background = "var(--ivory)";
-    btn.style.color = "var(--slate)";
-    btn.style.borderColor = "var(--champagne)";
-  } else {
-    btn.style.background = "";
-    btn.style.color = "";
-    btn.style.borderColor = "";
-  }
-  renderPresets();
-}
-
-function renamePreset(oldName) {
-  var newName = prompt("Rename preset:", oldName);
-  if (!newName || !newName.trim() || newName.trim() === oldName) return;
-  newName = newName.trim();
-  var presets = getPresets();
-  var p = presets.find(function(x) { return x.name === oldName; });
-  if (p) p.name = newName;
-  savePresets(presets);
-  if (state.activePreset === oldName) state.activePreset = newName;
-  renderPresets();
-}
 
 function loadPreset(name) {
   var presets = getPresets();
@@ -2018,23 +1988,11 @@ function loadPreset(name) {
   renderPresets();
 }
 
-function deletePreset(name) {
-  var presets = getPresets().filter(function(p) { return p.name !== name; });
-  savePresets(presets);
-  renderPresets();
-}
-
 function renderPresets() {
   var container = document.getElementById("presetList");
   while (container.firstChild) container.removeChild(container.firstChild);
   var presets = getPresets();
-  var editBtn = document.getElementById("editPresetsBtn");
-  editBtn.style.display = presets.length > 0 ? "" : "none";
   if (presets.length === 0) {
-    _editingPresets = false;
-    editBtn.textContent = "Edit";
-    editBtn.style.background = "";
-    editBtn.style.color = "";
     var hint = createEl("span", "", "No saved presets");
     hint.style.cssText = "font-size:11px;color:rgba(28,28,30,0.3);font-family:var(--font-mono);";
     container.appendChild(hint);
@@ -2045,23 +2003,9 @@ function renderPresets() {
     var chip = createEl("div", "");
     var isActive = state.activePreset === p.name;
     chip.style.cssText = "display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:1.5px solid " + (isActive ? "var(--champagne)" : "rgba(28,28,30,0.12)") + ";background:" + (isActive ? "rgba(90,125,150,0.08)" : "white") + ";cursor:pointer;font-family:var(--font-mono);font-size:10px;font-weight:" + (isActive ? "600" : "500") + ";letter-spacing:0.03em;color:" + (isActive ? "var(--slate)" : "inherit") + ";transition:all 0.15s;";
-    if (_editingPresets) {
-      var label = createEl("span", "", p.name);
-      label.style.cssText = "cursor:pointer;";
-      label.title = "Click to rename";
-      label.onclick = function() { renamePreset(p.name); };
-      var del = createEl("span", "", "x");
-      del.style.cssText = "color:rgba(28,28,30,0.35);cursor:pointer;margin-left:4px;font-size:11px;font-weight:600;line-height:1;padding:2px 4px;border-radius:3px;transition:all 0.15s;";
-      del.addEventListener("mouseenter", function() { del.style.color = "var(--red)"; del.style.background = "var(--red-bg)"; });
-      del.addEventListener("mouseleave", function() { del.style.color = "rgba(28,28,30,0.35)"; del.style.background = "transparent"; });
-      del.onclick = function(e) { e.stopPropagation(); deletePreset(p.name); };
-      chip.appendChild(label);
-      chip.appendChild(del);
-    } else {
-      var label = createEl("span", "", p.name);
-      label.onclick = function() { loadPreset(p.name); };
-      chip.appendChild(label);
-    }
+    var label = createEl("span", "", p.name);
+    label.onclick = function() { loadPreset(p.name); };
+    chip.appendChild(label);
     container.appendChild(chip);
   });
   updateEditingPill();
