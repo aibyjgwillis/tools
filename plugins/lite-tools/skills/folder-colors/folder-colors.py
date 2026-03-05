@@ -1440,6 +1440,7 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
     <div class="section">
       <div class="section-label">Apply To</div>
       <div class="layer-tree" id="layerTree"></div>
+      <div id="totalFolderCount" style="display:none; margin-top:8px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--champagne); font-weight:500; text-align:right;"></div>
 
       <div id="manualFolderList" class="tree-container" style="display:none; margin-top:10px;">
         <div class="manual-list-header">
@@ -2581,38 +2582,37 @@ function updateFolderCount() {
   // Check if depth 0 is enabled
   const depth0Enabled = layerEnabled[0];
 
-  // If no deeper levels enabled, show count based on depth 0 status
+  const label = currentBaseLabel === 'All Folders' ? 'All Folders' : (currentBaseLabel || 'Folders');
+  const checkedCount = manualFolders.filter(f => f.checked).length;
+  const totalEl = el('totalFolderCount');
+
+  // Header always shows top-level count
+  txt(el('manualListTitle'), label + ' (' + checkedCount + ')');
+
+  // If no deeper levels enabled, total = top-level count
   if (maxDepth === 0) {
-    const label = currentBaseLabel === 'All Folders' ? 'All Folders' : (currentBaseLabel || 'Folders');
-    if (depth0Enabled) {
-      const checked = manualFolders.filter(f => f.checked).length;
-      _lastFolderCount = checked;
-      txt(el('manualListTitle'), label + ' (' + checked + ')');
-    } else {
-      _lastFolderCount = 0;
-      txt(el('manualListTitle'), label + ' (0 selected)');
-    }
+    _lastFolderCount = depth0Enabled ? checkedCount : 0;
+    if (!depth0Enabled) txt(el('manualListTitle'), label + ' (0 selected)');
+    totalEl.style.display = 'none';
     el('manualStatus').classList.remove('show');
     return;
   }
 
-  const label = currentBaseLabel === 'All Folders' ? 'All Folders' : (currentBaseLabel || 'Folders');
-  const checked = manualFolders.filter(f => f.checked);
-  txt(el('manualListTitle'), label + ' (' + checked.length + ' top-level, counting subfolders...)');
+  // Show counting state
+  totalEl.style.display = 'block';
+  txt(totalEl, 'Total: counting...');
 
-  // Count subfolders for each checked folder. manualFolders are at depth 0,
-  // so to count folders at layer depths 1..maxDepth we use API depth = maxDepth - 1
+  // Count subfolders for each checked folder
   const apiDepth = maxDepth - 1;
-  const paths = checked.map(f => f.path);
+  const paths = manualFolders.filter(f => f.checked).map(f => f.path);
   Promise.all(paths.map(p =>
     fetch('/api/count?path=' + encodeURIComponent(p) + '&depth=' + apiDepth, {signal}).then(r => r.json()).catch(() => ({count: 0}))
   )).then(counts => {
     if (signal.aborted) return;
     const subTotal = counts.reduce((sum, c) => sum + (c.count || 0), 0);
-    const total = checked.length + subTotal;
+    const total = checkedCount + subTotal;
     _lastFolderCount = total;
-    let text = label + ' (' + total.toLocaleString() + ' folders)';
-    txt(el('manualListTitle'), text);
+    txt(totalEl, 'Total folders selected: ' + total.toLocaleString());
     if (total > 1000) {
       showStatus('manualStatus', 'Warning: ' + total.toLocaleString() + ' folders selected. Applying colors will take a while.', 'err');
     } else {
