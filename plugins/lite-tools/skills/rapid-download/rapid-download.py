@@ -409,6 +409,39 @@ body {
 .footer-socials a { display: flex; align-items: center; }
 .footer-socials svg { width: 13px; height: 13px; fill: var(--champagne); opacity: 0.6; transition: opacity 0.2s; }
 .footer-socials a:hover svg { opacity: 1; }
+.footer-waitlist { position: relative; }
+.footer-waitlist-btn {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  background: var(--slate); color: var(--ivory); border: none; border-radius: 2rem;
+  padding: 5px 12px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+}
+.footer-waitlist-btn:hover { background: var(--obsidian); }
+.footer-waitlist-form {
+  position: absolute; bottom: 32px; right: 0; background: white;
+  border: 1px solid rgba(28,28,30,0.1); border-radius: 10px; padding: 14px;
+  display: none; flex-direction: column; gap: 8px; min-width: 240px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.footer-waitlist-form.open { display: flex; }
+.footer-waitlist-form label {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--champagne);
+}
+.footer-waitlist-form input {
+  font-family: var(--font-heading); font-size: 13px; padding: 8px 12px;
+  border: 1px solid rgba(28,28,30,0.12); border-radius: 6px; outline: none;
+  transition: border-color 0.2s; color: var(--slate); background: var(--ivory);
+}
+.footer-waitlist-form input:focus { border-color: var(--champagne); }
+.footer-waitlist-form .footer-waitlist-submit {
+  font-family: var(--font-heading); font-size: 12px; font-weight: 600;
+  background: var(--slate); color: var(--ivory); border: none; border-radius: 6px;
+  padding: 8px; cursor: pointer; transition: all 0.2s;
+}
+.footer-waitlist-form .footer-waitlist-submit:hover { background: var(--obsidian); }
+.footer-waitlist-msg {
+  font-family: var(--font-mono); font-size: 10px; color: var(--green);
+}
 /* ==/THEME:FOOTER_CSS== */
 
 /* ==THEME:FADEIN== */
@@ -501,6 +534,16 @@ body {
     <a href="https://youtube.com/@aibyjgwillis" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
+  </div>
+  <span class="footer-sep">|</span>
+  <div class="footer-waitlist">
+    <button class="footer-waitlist-btn" onclick="this.nextElementSibling.classList.toggle('open')">Join Pro Tools Waitlist</button>
+    <div class="footer-waitlist-form">
+      <label>Get notified at launch</label>
+      <input type="email" placeholder="you@email.com" class="footer-waitlist-email">
+      <button class="footer-waitlist-submit" onclick="submitWaitlist(this)">Submit</button>
+      <span class="footer-waitlist-msg"></span>
+    </div>
   </div>
 </div>
 <!-- ==/THEME:FOOTER_HTML== -->
