@@ -1937,11 +1937,18 @@ function updateEditingPill() {
 }
 
 function cancelPreset() {
-  if (state._presetSnapshot) {
-    loadPreset(state.activePreset);
+  if (state._presetSnapshot && state.activePreset) {
+    var name = state.activePreset;
+    state.activePreset = null;
+    state._presetSnapshot = null;
+    loadPreset(name);
+    // loadPreset re-sets activePreset, so clear it again
+    state.activePreset = null;
+    state._presetSnapshot = null;
+  } else {
+    state.activePreset = null;
+    state._presetSnapshot = null;
   }
-  state.activePreset = null;
-  state._presetSnapshot = null;
   renderPresets();
 }
 
