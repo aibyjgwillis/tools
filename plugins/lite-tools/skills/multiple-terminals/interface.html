@@ -57,7 +57,7 @@
   }
   .page-subtitle {
     font-family: var(--font-mono); font-size: 12px; color: var(--champagne);
-    text-align: center; margin-bottom: 40px;
+    text-align: center; margin-bottom: 20px;
   }
   /* ==/THEME:PAGE_TITLE== */
 
@@ -65,14 +65,14 @@
   .section-label {
     font-family: var(--font-mono); font-size: 10px; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.14em; color: var(--champagne);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   /* ==/THEME:SECTION_LABEL== */
 
   /* ==THEME:CARDS== */
   .card {
     background: white; border: 1px solid rgba(28,28,30,0.08);
-    border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 14px;
   }
   .card-champagne { background: rgba(90,125,150,0.04); border-color: rgba(90,125,150,0.12); }
   .card-amber { background: var(--amber-bg); border-color: rgba(184,134,11,0.15); }
@@ -92,11 +92,10 @@
 
   /* ==THEME:FOOTER_CSS== */
   .footer {
-    position: fixed; bottom: 0; left: 0; right: 0;
     display: flex; align-items: center; justify-content: center;
     padding: 14px 24px;
     font-family: var(--font-mono); font-size: 10px; color: rgba(28,28,30,0.3);
-    background: linear-gradient(transparent, var(--ivory) 40%);
+    border-top: 1px solid rgba(28,28,30,0.06);
     gap: 14px;
   }
   .footer a { color: var(--champagne); text-decoration: none; }
@@ -106,14 +105,47 @@
   .footer-socials a { display: flex; align-items: center; }
   .footer-socials svg { width: 13px; height: 13px; fill: var(--champagne); opacity: 0.6; transition: opacity 0.2s; }
   .footer-socials a:hover svg { opacity: 1; }
+  .footer-waitlist { position: relative; }
+  .footer-waitlist-btn {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+    background: var(--slate); color: var(--ivory); border: none; border-radius: 2rem;
+    padding: 5px 12px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+  }
+  .footer-waitlist-btn:hover { background: var(--obsidian); }
+  .footer-waitlist-form {
+    position: absolute; bottom: 32px; right: 0; background: white;
+    border: 1px solid rgba(28,28,30,0.1); border-radius: 10px; padding: 14px;
+    display: none; flex-direction: column; gap: 8px; min-width: 240px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .footer-waitlist-form.open { display: flex; }
+  .footer-waitlist-form label {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--champagne);
+  }
+  .footer-waitlist-form input {
+    font-family: var(--font-heading); font-size: 13px; padding: 8px 12px;
+    border: 1px solid rgba(28,28,30,0.12); border-radius: 6px; outline: none;
+    transition: border-color 0.2s; color: var(--slate); background: var(--ivory);
+  }
+  .footer-waitlist-form input:focus { border-color: var(--champagne); }
+  .footer-waitlist-form .footer-waitlist-submit {
+    font-family: var(--font-heading); font-size: 12px; font-weight: 600;
+    background: var(--slate); color: var(--ivory); border: none; border-radius: 6px;
+    padding: 8px; cursor: pointer; transition: all 0.2s;
+  }
+  .footer-waitlist-form .footer-waitlist-submit:hover { background: var(--obsidian); }
+  .footer-waitlist-msg {
+    font-family: var(--font-mono); font-size: 10px; color: var(--green);
+  }
   /* ==/THEME:FOOTER_CSS== */
 
   /* ── Skill-specific styles ── */
 
   .main-content {
-    max-width: 560px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 40px 20px 80px;
+    padding: 40px 20px 30px;
     animation: fadeUp 0.5s ease both;
   }
 
@@ -245,42 +277,44 @@
   }
   .toggle input:checked + .toggle-track { background: var(--champagne); }
   .toggle input:checked + .toggle-track::after { transform: translateX(18px); }
+  .toggle-danger input:checked + .toggle-track { background: var(--red); }
 
   /* Color mode swatches */
   .mode-options {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
   }
 
   .mode-swatch {
     cursor: pointer;
     border: 2px solid transparent;
-    border-radius: 10px;
-    padding: 8px;
+    border-radius: 6px;
+    padding: 4px 6px 3px;
     text-align: center;
     transition: border-color 0.15s, background 0.15s;
-    background: white;
+    background: rgba(28,28,30,0.03);
+    flex: 0 0 auto;
   }
   .mode-swatch:hover { background: rgba(90,125,150,0.04); }
   .mode-swatch.active { border-color: var(--champagne); }
 
   .swatch-colors {
     display: flex;
-    gap: 2px;
-    margin-bottom: 6px;
-    height: 18px;
-    border-radius: 4px;
+    gap: 1px;
+    margin-bottom: 3px;
+    height: 14px;
+    border-radius: 3px;
     overflow: hidden;
   }
-  .swatch-colors span { flex: 1; }
+  .swatch-colors span { flex: 1; min-width: 6px; }
 
   .mode-name {
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     color: var(--champagne);
   }
   .mode-swatch.active .mode-name { color: var(--slate); }
@@ -328,6 +362,40 @@
   }
   .layout-option.active .layout-name { color: var(--slate); }
 
+  /* Include toggle buttons */
+  .include-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(28,28,30,0.12);
+    background: white;
+    color: var(--champagne);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .include-btn:hover:not(.disabled) { border-color: rgba(28,28,30,0.25); }
+  .include-btn.active {
+    background: var(--slate);
+    color: var(--ivory);
+    border-color: var(--slate);
+  }
+  .include-btn.disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Hub cell (browser) in layout previews */
+  .hub-cell {
+    background: var(--champagne) !important;
+    opacity: 0.55 !important;
+  }
+  .layout-option.active .hub-cell { opacity: 0.85 !important; }
+
   /* Live preview area */
   .preview-area {
     position: relative;
@@ -365,46 +433,204 @@
     background: rgba(255,255,255,0.3);
   }
 
-  .preview-body { flex: 1; }
+  .preview-body { flex: 1; position: relative; }
 
-  /* Command output */
-  .command-output {
-    background: var(--obsidian);
-    border: 1px solid rgba(28,28,30,0.08);
-    border-radius: 8px;
-    padding: 14px 16px;
+  .preview-window.drop-hover {
+    outline: 2px solid var(--champagne);
+    outline-offset: -2px;
+  }
+  .preview-window-index {
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+    font-family: var(--font-mono);
+    font-size: 7px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* Draggable color chips */
+  .color-chips {
+    display: flex;
+    gap: 4px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(28,28,30,0.06);
+  }
+  .color-chip {
+    flex: 1;
+    height: 20px;
+    border-radius: 4px;
+    cursor: grab;
+    border: 2px solid transparent;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+  .color-chip:hover { transform: scale(1.08); border-color: rgba(255,255,255,0.4); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+  .color-chip:active { cursor: grabbing; }
+
+  /* Draggable theme cards */
+  .theme-chips {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .theme-chip {
+    cursor: grab;
+    border: 1.5px solid rgba(28,28,30,0.1);
+    border-radius: 5px;
+    padding: 4px 10px 4px 8px;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .theme-chip:hover { transform: scale(1.04); border-color: var(--champagne); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .theme-chip:active { cursor: grabbing; }
+  .theme-chip-name {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .apply-mode-btn, .clear-mode-btn {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid rgba(28,28,30,0.1);
+  }
+  .apply-mode-btn {
+    background: var(--slate);
+    color: var(--ivory);
+    border-color: var(--slate);
+  }
+  .apply-mode-btn:hover { background: var(--obsidian); }
+  .clear-mode-btn {
+    background: white;
+    color: var(--champagne);
+  }
+  .clear-mode-btn:hover { border-color: var(--champagne); }
+
+  .drag-hint {
     font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 400;
-    color: rgba(245,245,243,0.7);
-    word-break: break-all;
-    line-height: 1.6;
-    position: relative;
-    cursor: pointer;
-    transition: border-color 0.15s;
+    color: rgba(28,28,30,0.35);
+    font-style: italic;
+    margin-top: 6px;
   }
-  .command-output:hover { border-color: var(--champagne); }
 
-  .copy-hint {
-    position: absolute;
-    top: 10px; right: 12px;
+  /* Active windows pill */
+  .active-windows-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(28,28,30,0.06);
+  }
+  .active-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 2rem;
+    background: rgba(28,28,30,0.04);
+    border: 1px solid rgba(28,28,30,0.08);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--champagne);
+  }
+  .active-pill:hover { border-color: var(--champagne); background: rgba(90,125,150,0.08); }
+  .active-pill.selected { background: var(--slate); color: var(--ivory); border-color: var(--slate); }
+  .active-pill-count {
+    font-weight: 700;
+    font-size: 12px;
+    min-width: 14px;
+    text-align: center;
+  }
+  .active-pill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+  .active-pill.selected .active-pill-dot { background: #7ddf90; }
+  .active-windows-label {
     font-family: var(--font-mono);
     font-size: 9px;
-    color: rgba(245,245,243,0.3);
-    opacity: 0;
-    transition: opacity 0.15s;
+    color: rgba(28,28,30,0.3);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
   }
-  .command-output:hover .copy-hint { opacity: 1; }
-  .command-output.copied .copy-hint { opacity: 1; color: var(--green); }
+  .no-server-msg {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: rgba(28,28,30,0.3);
+    font-style: italic;
+  }
 
-  .actions {
+  /* Action buttons */
+  .action-row {
     display: flex;
     gap: 10px;
-    margin-top: 12px;
+    margin-bottom: 20px;
   }
-  .actions .btn { flex: 1; text-align: center; }
+  .action-btn {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .action-btn-primary {
+    background: var(--slate);
+    color: var(--ivory);
+  }
+  .action-btn-primary:hover { background: var(--obsidian); }
+  .action-btn-secondary {
+    background: white;
+    color: var(--slate);
+    border: 1px solid rgba(28,28,30,0.15);
+  }
+  .action-btn-secondary:hover { border-color: var(--champagne); color: var(--champagne); }
+  .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .action-btn.success { background: var(--champagne); color: white; border-color: var(--champagne); }
+  .action-status {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-align: center;
+    min-height: 16px;
+    color: rgba(28,28,30,0.4);
+    margin-bottom: 16px;
+  }
+  .action-status.error { color: var(--red); }
+
+  /* Save indicator */
+  .save-indicator {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.3s;
+    margin-left: auto;
+  }
+  .save-indicator.visible { opacity: 1; }
+
 </style>
 </head>
 <body>
@@ -425,119 +651,89 @@
   <h1 class="page-title">Multiple Terminals</h1>
   <p class="page-subtitle">Configure and launch color-coded terminal windows</p>
 
+  <!-- Preview + Colors (top) -->
+  <div class="card card-champagne">
+    <div class="section-label">Preview</div>
+    <div class="preview-area" id="previewArea"></div>
+    <div class="section-label" style="margin-top:12px;">Color Palette</div>
+    <div class="mode-options" id="modeOptions"></div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;">
+      <div class="color-chips" id="colorChips" style="flex:1;margin:0;padding:0;border:0;"></div>
+      <button class="apply-mode-btn" id="applyModeBtn" onclick="applyModeToAll()">Apply to All</button>
+      <button class="clear-mode-btn" id="clearModeBtn" onclick="clearAllOverrides()">Clear</button>
+    </div>
+    <div class="theme-chips" id="themeChips" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(28,28,30,0.06);"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid rgba(28,28,30,0.06);">
+      <div class="drag-hint" id="dragHint" style="margin:0;">Drag a color or theme onto a preview window to override.</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-family:var(--font-mono);font-size:11px;color:rgba(28,28,30,0.45);letter-spacing:0.04em;font-weight:500;">IDLE COLOR</span>
+        <div id="highlightSwatch" style="width:24px;height:24px;border-radius:5px;background:#1a4a5a;border:2px solid rgba(28,28,30,0.12);cursor:pointer;position:relative;flex-shrink:0;transition:transform 0.15s,box-shadow 0.15s;" title="Highlight color (click to pick, or drag a color here)">
+          <input type="color" id="highlightColorInput" value="#1a4a5a" style="position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);opacity:0;cursor:pointer;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Windows count + include toggle -->
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="count-control">
+        <button class="count-btn" onclick="adjustCount(-1)">-</button>
+        <div class="count-display" id="countDisplay">3</div>
+        <button class="count-btn" onclick="adjustCount(1)">+</button>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="include-btn active" data-include="terminals" onclick="setInclude('terminals')">Terminals Only</button>
+        <button class="include-btn" data-include="browser-terminals" onclick="setInclude('browser-terminals')">Browser + Terminals</button>
+        <button class="include-btn" data-include="all" onclick="setInclude('all')">All Windows</button>
+      </div>
+      <div id="activeWindowsRow" style="display:flex;align-items:center;gap:8px;">
+        <button class="active-pill" id="activeTerminalsPill" onclick="useActiveCount('terminals')">
+          <span class="active-pill-dot"></span>
+          <span class="active-pill-count" id="activeTerminalCount">0</span>
+          <span>Terminals</span>
+        </button>
+        <button class="active-pill" id="activeAllPill" onclick="useActiveCount('all')">
+          <span class="active-pill-dot"></span>
+          <span class="active-pill-count" id="activeAllCount">0</span>
+          <span>Total</span>
+        </button>
+        <span class="no-server-msg" id="noServerMsg" style="display:none;">Use /multiple-terminals configure for live detection</span>
+      </div>
+      <span class="save-indicator" id="saveIndicator" style="margin-left:auto;">Saved</span>
+    </div>
+  </div>
+
+  <!-- Presets -->
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="section-label" style="margin:0;">Presets</span>
+      <div id="presetList" style="display:flex;gap:6px;flex-wrap:wrap;flex:1;"></div>
+      <button class="apply-mode-btn" onclick="savePreset()" style="white-space:nowrap;">Save Preset</button>
+    </div>
+  </div>
+
   <!-- Layout -->
   <div class="card">
     <div class="section-label">Layout</div>
-    <div class="layout-options" id="layoutOptions">
-      <div class="layout-option active" data-layout="side-by-side">
-        <div class="layout-preview" style="grid-template-columns: 1fr 1fr 1fr;">
-          <div class="cell"></div><div class="cell"></div><div class="cell"></div>
-        </div>
-        <div class="layout-name">Side by Side</div>
-      </div>
-      <div class="layout-option" data-layout="grid">
-        <div class="layout-preview" style="grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;">
-          <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-        </div>
-        <div class="layout-name">Grid</div>
-      </div>
-      <div class="layout-option" data-layout="rows">
-        <div class="layout-preview" style="grid-template-rows: 1fr 1fr 1fr;">
-          <div class="cell"></div><div class="cell"></div><div class="cell"></div>
-        </div>
-        <div class="layout-name">Rows</div>
-      </div>
-      <div class="layout-option" data-layout="stacked">
-        <div class="layout-preview" style="grid-template-columns: 1fr;">
-          <div class="cell"></div>
-        </div>
-        <div class="layout-name">Stacked</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Color Mode -->
-  <div class="card">
-    <div class="section-label">Color Mode</div>
-    <div class="mode-options" id="modeOptions"></div>
-  </div>
-
-  <!-- Settings -->
-  <div class="card">
-    <div class="section-label">Settings</div>
-    <div class="row">
-      <div class="field">
-        <span class="field-label">Windows</span>
-        <div class="count-control">
-          <button class="count-btn" onclick="adjustCount(-1)">-</button>
-          <div class="count-display" id="countDisplay">3</div>
-          <button class="count-btn" onclick="adjustCount(1)">+</button>
-        </div>
-      </div>
-      <div class="field">
-        <span class="field-label">Theme Override</span>
-        <select id="themeSelect">
-          <option value="">None (use color mode)</option>
-          <option>Basic</option>
-          <option>Pro</option>
-          <option>Homebrew</option>
-          <option>Ocean</option>
-          <option>Red Sands</option>
-          <option>Grass</option>
-          <option>Man Page</option>
-          <option>Novel</option>
-          <option>Silver Aerogel</option>
-          <option>Solid Colors</option>
-          <option>Clear Dark</option>
-          <option>Clear Light</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="field">
-        <span class="field-label">Commands (comma-separated)</span>
-        <input type="text" id="commandsInput" placeholder="e.g. claude,htop,git log">
-      </div>
-    </div>
+    <div class="layout-options" id="layoutOptions"></div>
+    <div class="section-label" style="margin-top:16px;">Hub Layouts (Includes Browser)</div>
+    <div class="layout-options" id="hubLayoutOptions"></div>
   </div>
 
   <!-- Options -->
   <div class="card">
     <div class="section-label">Options</div>
-    <div class="toggle-row">
-      <div>
-        <div class="toggle-label">Restyle Existing</div>
-        <div class="toggle-desc">Rearrange current windows instead of opening new ones</div>
+    <div class="row" style="margin-bottom:10px;">
+      <div class="field">
+        <span class="field-label">Commands (comma-separated)</span>
+        <input type="text" id="commandsInput" placeholder="e.g. claude,htop,git log">
       </div>
-      <label class="toggle">
-        <input type="checkbox" id="toggleRestyle">
-        <span class="toggle-track"></span>
-      </label>
     </div>
     <div class="toggle-row">
       <div>
-        <div class="toggle-label">Include All Windows</div>
-        <div class="toggle-desc">Include browsers, editors, and other apps in the layout</div>
-      </div>
-      <label class="toggle">
-        <input type="checkbox" id="toggleIncludeAll">
-        <span class="toggle-track"></span>
-      </label>
-    </div>
-    <div class="toggle-row">
-      <div>
-        <div class="toggle-label">All New Windows</div>
-        <div class="toggle-desc">Open fresh windows instead of reusing the existing one</div>
-      </div>
-      <label class="toggle">
-        <input type="checkbox" id="toggleAllNew">
-        <span class="toggle-track"></span>
-      </label>
-    </div>
-    <div class="toggle-row">
-      <div>
-        <div class="toggle-label">Notify on Finish</div>
-        <div class="toggle-desc">Play a sound when a command completes</div>
+        <div class="toggle-label">Idle Highlighting</div>
+        <div class="toggle-desc">Change background color when claude is waiting for input</div>
       </div>
       <label class="toggle">
         <input type="checkbox" id="toggleNotify">
@@ -546,20 +742,67 @@
     </div>
     <div class="toggle-row">
       <div>
-        <div class="toggle-label">Skip Auto-Claude</div>
-        <div class="toggle-desc">Don't auto-run claude in each window</div>
+        <div class="toggle-label">Sound Alerts</div>
+        <div class="toggle-desc">Play a sound when claude finishes a task or needs input</div>
       </div>
       <label class="toggle">
-        <input type="checkbox" id="toggleNoClaude">
+        <input type="checkbox" id="toggleSound">
         <span class="toggle-track"></span>
       </label>
     </div>
+    <div id="soundSettingsRow" style="display:none;padding:0 0 8px;margin-top:-4px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <select id="soundName" style="font-family:var(--font-mono);font-size:11px;padding:4px 8px;border:1px solid rgba(28,28,30,0.12);border-radius:5px;background:white;color:var(--slate);cursor:pointer;">
+          <option value="Submarine">Submarine</option>
+          <option value="Pop">Pop</option>
+          <option value="Purr">Purr</option>
+          <option value="Glass">Glass</option>
+          <option value="Bottle">Bottle</option>
+          <option value="Blow">Blow</option>
+          <option value="Tink">Tink</option>
+          <option value="Ping">Ping</option>
+          <option value="Morse">Morse</option>
+          <option value="Hero">Hero</option>
+          <option value="Funk">Funk</option>
+        </select>
+        <div style="display:flex;align-items:center;gap:6px;flex:1;">
+          <span style="font-family:var(--font-mono);font-size:9px;color:rgba(28,28,30,0.4);">VOL</span>
+          <input type="range" id="soundVolume" min="5" max="100" value="20" style="flex:1;accent-color:var(--champagne);cursor:pointer;">
+          <span id="soundVolumeLabel" style="font-family:var(--font-mono);font-size:9px;color:rgba(28,28,30,0.4);min-width:28px;">20%</span>
+        </div>
+      </div>
+    </div>
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Auto-Start Claude</div>
+        <div class="toggle-desc">Launch claude automatically in each new terminal</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="toggleAutoClaude" checked>
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div class="toggle-row" id="dangerousRow">
+      <div>
+        <div class="toggle-label" style="color:var(--red);">Dangerously Skip Permissions</div>
+        <div class="toggle-desc">Claude will execute tools without asking for approval. Use with caution.</div>
+      </div>
+      <label class="toggle toggle-danger">
+        <input type="checkbox" id="toggleSkipPerms">
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div id="dangerWarning" style="display:none;margin-top:-4px;padding:8px 12px;background:var(--red-bg);border:1px solid rgba(192,57,43,0.15);border-radius:6px;font-family:var(--font-mono);font-size:10px;color:var(--red);line-height:1.5;">
+      Claude will run all tools (file edits, shell commands, etc.) without confirmation. Only enable this if you trust the prompts you are sending.
+    </div>
   </div>
 
-  <!-- Preview -->
-  <div class="card card-champagne">
-    <div class="section-label">Preview</div>
-    <div class="preview-area" id="previewArea"></div>
+  <!-- Action buttons (visible when served) -->
+  <div id="actionSection" style="display:none;">
+    <div class="action-row">
+      <button class="action-btn action-btn-primary" id="applyBtn" onclick="doApply()">Apply</button>
+    </div>
+    <div class="action-status" id="actionStatus"></div>
   </div>
 
 </div>
@@ -581,28 +824,93 @@
       <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
   </div>
+  <span class="footer-sep">|</span>
+  <div class="footer-waitlist">
+    <button class="footer-waitlist-btn" onclick="this.nextElementSibling.classList.toggle('open')">Join Pro Tools Waitlist</button>
+    <div class="footer-waitlist-form">
+      <label>Get notified at launch</label>
+      <input type="email" placeholder="you@email.com" class="footer-waitlist-email">
+      <button class="footer-waitlist-submit" onclick="submitWaitlist(this)">Submit</button>
+      <span class="footer-waitlist-msg"></span>
+    </div>
+  </div>
 </div>
 <!-- ==/THEME:FOOTER_HTML== -->
 
 <script>
 var COLOR_MODES = {
-  ocean:  ["#0a2437","#0d344c","#124460","#1d5474","#2c5f80","#3a6a8c"],
-  forest: ["#0a2414","#10351e","#1a442a","#245436","#306444","#3c7454"],
-  sunset: ["#3a140c","#541c10","#6a2818","#7a3520","#8a442c","#985438"],
-  berry:  ["#240a2a","#361440","#461e54","#582a68","#6a367c","#7c4290"],
-  earth:  ["#1e1410","#302418","#3e3020","#4c3c28","#5a4832","#68543c"],
-  mono:   ["#141414","#1e1e1e","#2a2a2a","#363636","#424242","#4e4e4e"],
-  warm:   ["#3a100a","#4e1810","#641e14","#7a2818","#8e3420","#a04028"],
-  cool:   ["#0a1438","#10204c","#182c60","#203a74","#2c4888","#38569c"],
+  ocean:      ["#0a2437","#0d344c","#124460","#1d5474","#2c5f80","#3a6a8c"],
+  forest:     ["#0a2414","#10351e","#1a442a","#245436","#306444","#3c7454"],
+  sunset:     ["#3a140c","#541c10","#6a2818","#7a3520","#8a442c","#985438"],
+  berry:      ["#240a2a","#361440","#461e54","#582a68","#6a367c","#7c4290"],
+  earth:      ["#1e1410","#302418","#3e3020","#4c3c28","#5a4832","#68543c"],
+  mono:       ["#141414","#1e1e1e","#2a2a2a","#363636","#424242","#4e4e4e"],
+  warm:       ["#3a100a","#4e1810","#641e14","#7a2818","#8e3420","#a04028"],
+  cool:       ["#0a1438","#10204c","#182c60","#203a74","#2c4888","#38569c"],
+  classic:    ["#C0392B","#D35400","#D4A017","#27AE60","#2980B9","#8E44AD","#C2185B","#16A085"],
+  stealth:    ["#2C3E50","#34495E","#1A1A2E","#3D3D3D","#4A4A4A","#2D2D2D","#1B2631","#283747"],
+  tactical:   ["#556B2F","#8B7355","#4A5D23","#6B4226","#3B3B3B","#8B4513","#2F4F4F","#704214"],
+  carbon:     ["#1C1C1C","#333333","#4D4D4D","#666666","#2C2C2C","#3D3D3D","#1A1A1A","#555555"],
+  midnight:   ["#0D1B2A","#1B263B","#415A77","#778DA9","#2A3950","#1F3044","#324A5F","#0B132B"],
+  mermaid:    ["#2EC4B6","#6A89CC","#82589F","#3B9B8F","#48DBDB","#7E57C2","#5CA0D3","#38ADA9"],
+  pastel:     ["#FFB5C2","#B5D8FF","#C4B5FF","#B5FFD9","#FFE4B5","#E8B5FF","#B5F0FF","#FFD1B5"],
+  neutrals:   ["#C4A882","#B8A089","#A69279","#D4C4AA","#B5A590","#C9B99A","#A89070","#BCA888"],
+  mint:       ["#3EB489","#48C9B0","#76D7C4","#A3E4D7","#1ABC9C","#17A589","#138D75","#0E6655"],
+  moody:      ["#9E2C21","#305853","#B06821","#511B18","#1B2A30","#3B3B3B","#5C4033","#2C3E50"],
+  leather:    ["#8B5E3C","#A0522D","#6B4226","#556B2F","#8F9779","#D2B48C","#C19A6B","#4A3728"],
+  claude:     ["#8B4513","#1A1028","#3A6B8C","#2A0E0E","#7A6840","#0D1B2A","#4A7A5A","#5B3A8C"],
 };
 
-var SCRIPT_PATH = "~/tools/plugins/lite-tools/skills/multiple-terminals/multiple-terminals.py";
+var THEME_DATA = [
+  {name:"Pro",           bg:"#1a1a1a", fg:"#4fe34f"},
+  {name:"Homebrew",      bg:"#0a0a0a", fg:"#28fe14"},
+  {name:"Ocean",         bg:"#224fba", fg:"#ffffff"},
+  {name:"Red Sands",     bg:"#7a2d21", fg:"#d7c9a7"},
+  {name:"Grass",         bg:"#13773d", fg:"#ffffff"},
+  {name:"Man Page",      bg:"#fef49c", fg:"#1a1a1a"},
+  {name:"Novel",         bg:"#dfd8c5", fg:"#3b2e1a"},
+  {name:"Basic",         bg:"#ffffff", fg:"#1a1a1a"},
+  {name:"Silver Aerogel",bg:"#d0d0d0", fg:"#1a1a1a"},
+  {name:"Solid Colors",  bg:"#262626", fg:"#e0e0e0"},
+  {name:"Clear Dark",    bg:"rgba(30,30,30,0.85)", fg:"#ffffff"},
+  {name:"Clear Light",   bg:"rgba(240,240,240,0.85)", fg:"#1a1a1a"},
+];
 
 var state = {
   layout: "side-by-side",
   mode: "ocean",
   count: 3,
+  include: "terminals",
+  restyle: false,
+  noClaude: false,
+  skipPerms: false,
+  notify: false,
+  commands: "",
+  windowOverrides: [],  // per-window: null (use mode color) or {color:"#hex"} or {theme:"Name"}
 };
+
+var serverAvailable = false;
+var activeTerminals = 0;
+var activeTotal = 0;
+var dragData = null;  // {type:"color", value:"#hex"} or {type:"theme", value:"Name", bg:"#hex"}
+
+function contrastText(hex) {
+  // Returns a high-contrast text color for a given background hex
+  var h = hex.replace("#", "");
+  if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  var r = parseInt(h.substr(0,2),16), g = parseInt(h.substr(2,2),16), b = parseInt(h.substr(4,2),16);
+  var lum = 0.299*r + 0.587*g + 0.114*b;
+  return lum < 140 ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.6)";
+}
+
+function getWindowTextColor(termIdx) {
+  var override = state.windowOverrides[termIdx];
+  if (override && override.theme) {
+    var t = THEME_DATA.find(function(x) { return x.name === override.theme; });
+    return t ? t.fg : "#ffffff";
+  }
+  return contrastText(getWindowColor(termIdx));
+}
 
 function createEl(tag, className, textContent) {
   var el = document.createElement(tag);
@@ -633,48 +941,433 @@ function buildModeSwatches() {
       state.mode = name;
       document.querySelectorAll(".mode-swatch").forEach(function(s) { s.classList.remove("active"); });
       div.classList.add("active");
+      buildColorChips();
       update();
     });
     container.appendChild(div);
   });
 }
 
-document.getElementById("layoutOptions").addEventListener("click", function(e) {
+function buildColorChips() {
+  var container = document.getElementById("colorChips");
+  while (container.firstChild) container.removeChild(container.firstChild);
+  var colors = COLOR_MODES[state.mode] || [];
+  colors.forEach(function(c, i) {
+    var chip = createEl("div", "color-chip");
+    chip.style.background = c;
+    chip.draggable = true;
+    chip.addEventListener("dragstart", function(e) {
+      dragData = {type: "color", value: c};
+      e.dataTransfer.effectAllowed = "copy";
+      try { e.dataTransfer.setData("text/plain", c); } catch(ex) {}
+    });
+    chip.addEventListener("dragend", function() { dragData = null; });
+    container.appendChild(chip);
+  });
+}
+
+function buildThemeChips() {
+  var container = document.getElementById("themeChips");
+  while (container.firstChild) container.removeChild(container.firstChild);
+
+  // "Pick Color" chip first - made prominent with dashed border
+  var justColor = createEl("div", "theme-chip");
+  justColor.style.cssText = "background:white;position:relative;overflow:hidden;border:2px dashed var(--champagne);padding:6px 14px 6px 10px;";
+  justColor.draggable = false;
+
+  var colorInput = document.createElement("input");
+  colorInput.type = "color";
+  colorInput.value = "#1a1a1a";
+  colorInput.style.cssText = "position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);opacity:0;cursor:pointer;";
+  colorInput.addEventListener("input", function() {
+    dragData = {type: "color", value: colorInput.value};
+    justColor.style.background = colorInput.value;
+    justColor.style.borderStyle = "solid";
+    var nameEl = justColor.querySelector(".theme-chip-name");
+    if (nameEl) nameEl.style.color = contrastText(colorInput.value);
+  });
+  justColor.addEventListener("mousedown", function() {
+    justColor.draggable = true;
+  });
+  justColor.addEventListener("dragstart", function(e) {
+    dragData = {type: "color", value: colorInput.value};
+    e.dataTransfer.effectAllowed = "copy";
+    try { e.dataTransfer.setData("text/plain", colorInput.value); } catch(ex) {}
+  });
+  justColor.addEventListener("dragend", function() { dragData = null; justColor.draggable = false; });
+
+  var pickLabel = createEl("span", "theme-chip-name", "Pick Color");
+  pickLabel.style.cssText = "color:var(--champagne);font-size:9px;font-weight:600;";
+  justColor.appendChild(colorInput);
+  justColor.appendChild(pickLabel);
+  container.appendChild(justColor);
+
+  // Default terminal themes
+  THEME_DATA.forEach(function(t) {
+    var chip = createEl("div", "theme-chip");
+    chip.style.background = t.bg;
+    if (t.name === "Basic" || t.name === "Clear Light") chip.style.borderColor = "rgba(28,28,30,0.15)";
+    chip.draggable = true;
+
+    var nameEl = createEl("span", "theme-chip-name", t.name);
+    nameEl.style.color = t.fg;
+    chip.appendChild(nameEl);
+
+    chip.addEventListener("dragstart", function(e) {
+      dragData = {type: "theme", value: t.name, bg: t.bg};
+      e.dataTransfer.effectAllowed = "copy";
+      try { e.dataTransfer.setData("text/plain", t.name); } catch(ex) {}
+    });
+    chip.addEventListener("dragend", function() { dragData = null; });
+    container.appendChild(chip);
+  });
+}
+
+function applyModeToAll() {
+  var colors = COLOR_MODES[state.mode] || COLOR_MODES.ocean;
+  state.windowOverrides = [];
+  for (var i = 0; i < state.count; i++) {
+    state.windowOverrides[i] = {color: colors[i % colors.length]};
+  }
+  update();
+}
+
+function clearAllOverrides() {
+  state.windowOverrides = [];
+  update();
+}
+
+function handleLayoutClick(e) {
   var opt = e.target.closest(".layout-option");
   if (!opt) return;
+  var prevHub = state.layout.indexOf("hub-") === 0;
   state.layout = opt.dataset.layout;
+  var nowHub = state.layout.indexOf("hub-") === 0;
   document.querySelectorAll(".layout-option").forEach(function(o) { o.classList.remove("active"); });
   opt.classList.add("active");
+  // Auto-switch include mode when crossing between hub and standard
+  if (nowHub && !prevHub) {
+    state.include = "browser-terminals";
+  } else if (!nowHub && prevHub && state.include === "browser-terminals") {
+    state.include = "terminals";
+  }
+  syncIncludeButtons();
   update();
-});
+}
+
+document.getElementById("layoutOptions").addEventListener("click", handleLayoutClick);
+document.getElementById("hubLayoutOptions").addEventListener("click", handleLayoutClick);
+
+function syncIncludeButtons() {
+  var isHub = state.layout.indexOf("hub-") === 0;
+  document.querySelectorAll(".include-btn").forEach(function(b) {
+    var val = b.dataset.include;
+    b.classList.toggle("active", val === state.include);
+    // "Terminals Only" is disabled when a hub layout is selected (hubs need a browser)
+    // "Browser + Terminals" is disabled for standard layouts (no browser involved)
+    if (val === "terminals") {
+      b.classList.toggle("disabled", isHub);
+    } else if (val === "browser-terminals") {
+      b.classList.toggle("disabled", !isHub);
+    }
+  });
+}
+
+function setInclude(val) {
+  state.include = val;
+  syncIncludeButtons();
+  update();
+}
 
 function adjustCount(delta) {
-  state.count = Math.max(1, Math.min(6, state.count + delta));
+  state.count = Math.max(1, state.count + delta);
   document.getElementById("countDisplay").textContent = state.count;
   update();
+}
+
+function getWindowColor(termIdx) {
+  var override = state.windowOverrides[termIdx];
+  if (override) {
+    if (override.color) return override.color;
+    if (override.theme) {
+      var t = THEME_DATA.find(function(x) { return x.name === override.theme; });
+      return t ? t.bg : "#1a1a1a";
+    }
+  }
+  var colors = COLOR_MODES[state.mode] || COLOR_MODES.ocean;
+  return colors[termIdx % colors.length];
+}
+
+var LAYOUT_DEFS = [
+  { layout: "side-by-side", name: "Side by Side", hub: false },
+  { layout: "grid", name: "Grid", hub: false },
+  { layout: "rows", name: "Rows", hub: false },
+  { layout: "stacked", name: "Stacked", hub: false },
+  { layout: "hub-sides", name: "Hub Sides", hub: true },
+  { layout: "hub-side-left", name: "Hub Left", hub: true },
+  { layout: "hub-side-right", name: "Hub Right", hub: true },
+  { layout: "hub-columns", name: "Hub Columns", hub: true },
+  { layout: "hub-grid", name: "Hub Grid", hub: true },
+  { layout: "hub-top", name: "Hub Top", hub: true },
+  { layout: "hub-stack", name: "Hub Bottom", hub: true },
+];
+
+function buildLayoutThumbnail(preview, layout, n) {
+  while (preview.firstChild) preview.removeChild(preview.firstChild);
+  preview.removeAttribute("style");
+
+  if (layout === "side-by-side") {
+    preview.style.gridTemplateColumns = "repeat(" + n + ", 1fr)";
+    for (var i = 0; i < n; i++) preview.appendChild(createEl("div", "cell"));
+  } else if (layout === "grid") {
+    var cols = Math.ceil(Math.sqrt(n));
+    var rows = Math.ceil(n / cols);
+    preview.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+    preview.style.gridTemplateRows = "repeat(" + rows + ", 1fr)";
+    for (var i = 0; i < n; i++) preview.appendChild(createEl("div", "cell"));
+  } else if (layout === "rows") {
+    preview.style.gridTemplateRows = "repeat(" + n + ", 1fr)";
+    preview.style.gridTemplateColumns = "1fr";
+    for (var i = 0; i < n; i++) preview.appendChild(createEl("div", "cell"));
+  } else if (layout === "stacked") {
+    preview.style.gridTemplateColumns = "1fr";
+    preview.appendChild(createEl("div", "cell"));
+  } else if (layout === "hub-sides") {
+    var left = Math.ceil(n / 2), right = n - left;
+    preview.style.gridTemplateColumns = "1fr 2fr 1fr";
+    preview.style.gridTemplateRows = "repeat(" + Math.max(left, right, 1) + ", 1fr)";
+    for (var i = 0; i < left; i++) preview.appendChild(createEl("div", "cell"));
+    var hub = createEl("div", "cell hub-cell");
+    hub.style.gridRow = "1 / -1";
+    hub.style.gridColumn = "2";
+    preview.appendChild(hub);
+    for (var i = 0; i < right; i++) preview.appendChild(createEl("div", "cell"));
+  } else if (layout === "hub-columns") {
+    var left = Math.floor(n / 2), right = n - left;
+    var colTemplate = "";
+    for (var i = 0; i < left; i++) colTemplate += "1fr ";
+    colTemplate += "1.5fr ";
+    for (var i = 0; i < right; i++) colTemplate += "1fr ";
+    preview.style.gridTemplateColumns = colTemplate.trim();
+    for (var i = 0; i < left; i++) preview.appendChild(createEl("div", "cell"));
+    var hub = createEl("div", "cell hub-cell");
+    preview.appendChild(hub);
+    for (var i = 0; i < right; i++) preview.appendChild(createEl("div", "cell"));
+  } else if (layout === "hub-side-left") {
+    preview.style.gridTemplateColumns = "2fr 1fr";
+    preview.style.gridTemplateRows = "repeat(" + Math.max(n, 1) + ", 1fr)";
+    var hub = createEl("div", "cell hub-cell");
+    hub.style.gridRow = "1 / -1";
+    preview.appendChild(hub);
+    for (var i = 0; i < n; i++) preview.appendChild(createEl("div", "cell"));
+  } else if (layout === "hub-side-right") {
+    preview.style.gridTemplateColumns = "1fr 2fr";
+    preview.style.gridTemplateRows = "repeat(" + Math.max(n, 1) + ", 1fr)";
+    for (var i = 0; i < n; i++) preview.appendChild(createEl("div", "cell"));
+    var hub = createEl("div", "cell hub-cell");
+    hub.style.gridRow = "1 / -1";
+    hub.style.gridColumn = "2";
+    preview.appendChild(hub);
+  } else if (layout === "hub-grid") {
+    var cols = Math.ceil(Math.sqrt(n + 1));
+    var rows = Math.ceil((n + 1) / cols);
+    preview.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+    preview.style.gridTemplateRows = "repeat(" + rows + ", 1fr)";
+    var mid = Math.floor((n + 1) / 2);
+    for (var i = 0; i < n + 1; i++) {
+      if (i === mid) {
+        preview.appendChild(createEl("div", "cell hub-cell"));
+      } else {
+        preview.appendChild(createEl("div", "cell"));
+      }
+    }
+  } else if (layout === "hub-top") {
+    preview.style.gridTemplateColumns = "repeat(" + Math.max(n, 1) + ", 1fr)";
+    preview.style.gridTemplateRows = "1fr 1.5fr";
+    for (var i = 0; i < n; i++) preview.appendChild(createEl("div", "cell"));
+    var hub = createEl("div", "cell hub-cell");
+    hub.style.gridColumn = "1 / -1";
+    preview.appendChild(hub);
+  } else if (layout === "hub-stack") {
+    preview.style.gridTemplateColumns = "repeat(" + Math.max(n, 1) + ", 1fr)";
+    preview.style.gridTemplateRows = "1.5fr 1fr";
+    var hub = createEl("div", "cell hub-cell");
+    hub.style.gridColumn = "1 / -1";
+    preview.appendChild(hub);
+    for (var i = 0; i < n; i++) preview.appendChild(createEl("div", "cell"));
+  }
+}
+
+function buildLayoutThumbnails() {
+  var n = state.count;
+  var stdContainer = document.getElementById("layoutOptions");
+  var hubContainer = document.getElementById("hubLayoutOptions");
+  stdContainer.innerHTML = "";
+  hubContainer.innerHTML = "";
+
+  LAYOUT_DEFS.forEach(function(def) {
+    var opt = createEl("div", "layout-option");
+    opt.setAttribute("data-layout", def.layout);
+    if (state.layout === def.layout) opt.classList.add("active");
+
+    var preview = createEl("div", "layout-preview");
+    buildLayoutThumbnail(preview, def.layout, n);
+    opt.appendChild(preview);
+
+    var name = createEl("div", "layout-name", def.name);
+    opt.appendChild(name);
+
+    if (def.hub) {
+      hubContainer.appendChild(opt);
+    } else {
+      stdContainer.appendChild(opt);
+    }
+  });
 }
 
 function updatePreview() {
   var area = document.getElementById("previewArea");
   while (area.firstChild) area.removeChild(area.firstChild);
 
-  var colors = COLOR_MODES[state.mode];
-  var rects = calculateLayout(state.count, state.layout);
+  var isHub = state.layout.indexOf("hub-") === 0;
+  var detectedOther = Math.max(0, activeTotal - activeTerminals);
+  var terminalSlots, otherAppCount, layoutCount;
 
-  rects.forEach(function(rect, i) {
+  // Three include modes:
+  //   "terminals"         - only terminals, no browser, no other apps
+  //   "browser-terminals" - terminals + browser (hub default), no other apps
+  //   "all"               - terminals + browser + all other detected apps
+
+  if (state.include === "all") {
+    // Count always means terminal count. Browser is extra in hub layouts.
+    terminalSlots = state.count;
+    otherAppCount = 0;
+    layoutCount = state.count;
+  } else if (state.include === "browser-terminals") {
+    // Count means terminal count, browser is extra
+    terminalSlots = state.count;
+    otherAppCount = 0;
+    layoutCount = state.count;
+  } else {
+    // "terminals" - just terminals, count means terminal count
+    terminalSlots = state.count;
+    otherAppCount = 0;
+    layoutCount = state.count;
+  }
+
+  // Use hub layout when browser is included, otherwise fall back to standard equivalent
+  var effectiveLayout = state.layout;
+  if (state.include === "terminals" && isHub) {
+    if (state.layout === "hub-top" || state.layout === "hub-stack") effectiveLayout = "rows";
+    else if (state.layout === "hub-grid") effectiveLayout = "grid";
+    else if (state.layout === "hub-columns" || state.layout === "hub-sides") effectiveLayout = "side-by-side";
+    else effectiveLayout = "side-by-side";
+  }
+
+  var rects = calculateLayout(layoutCount, effectiveLayout);
+
+  var termIdx = 0;
+  var otherIdx = 0;
+  rects.forEach(function(item, rectIdx) {
+    var isBrowser = item && item.browser;
+    var r = isBrowser ? item.rect : item;
+    var slotIndex = isBrowser ? -1 : (termIdx + otherIdx);
+    // Non-hub layouts: terminals first, then other app windows
+    var isOtherApp = !isBrowser && (termIdx >= terminalSlots);
+    var currentTermIdx = isBrowser ? -1 : (isOtherApp ? -1 : termIdx);
+
     var win = createEl("div", "preview-window");
-    win.style.left = (rect[0] * 100) + "%";
-    win.style.top = (rect[1] * 100) + "%";
-    win.style.width = ((rect[2] - rect[0]) * 100) + "%";
-    win.style.height = ((rect[3] - rect[1]) * 100) + "%";
-    win.style.background = colors[i % colors.length];
+    win.style.left = (r[0] * 100) + "%";
+    win.style.top = (r[1] * 100) + "%";
+    win.style.width = ((r[2] - r[0]) * 100) + "%";
+    win.style.height = ((r[3] - r[1]) * 100) + "%";
+
+    var bgColor, txtColor;
+    if (isBrowser) {
+      bgColor = "#E8E8E6";
+      txtColor = "rgba(28,28,30,0.35)";
+      win.style.background = bgColor;
+      win.style.border = "1px solid rgba(28,28,30,0.12)";
+    } else if (isOtherApp) {
+      bgColor = "#E8E8E6";
+      txtColor = "rgba(28,28,30,0.35)";
+      win.style.background = bgColor;
+      win.style.border = "1px solid rgba(28,28,30,0.10)";
+      otherIdx++;
+      termIdx++;
+    } else {
+      bgColor = getWindowColor(termIdx);
+      txtColor = getWindowTextColor(termIdx);
+      win.style.background = bgColor;
+      termIdx++;
+    }
 
     var titlebar = createEl("div", "preview-titlebar");
+    if (isOtherApp || isBrowser) {
+      titlebar.style.background = "rgba(0,0,0,0.06)";
+    }
     titlebar.appendChild(createEl("div", "preview-dot"));
     titlebar.appendChild(createEl("div", "preview-dot"));
     titlebar.appendChild(createEl("div", "preview-dot"));
     win.appendChild(titlebar);
-    win.appendChild(createEl("div", "preview-body"));
+
+    var body = createEl("div", "preview-body");
+    if (isBrowser) {
+      var label = createEl("div", "", "Browser");
+      label.style.cssText = "font-family:var(--font-mono);font-size:8px;color:" + txtColor + ";text-align:center;padding-top:20%;";
+      body.appendChild(label);
+    } else if (isOtherApp) {
+      var label = createEl("div", "", "Other App");
+      label.style.cssText = "font-family:var(--font-mono);font-size:7px;color:" + txtColor + ";text-align:center;padding-top:20%;";
+      body.appendChild(label);
+    } else {
+      var prompt = createEl("div", "", "$ claude");
+      prompt.style.cssText = "font-family:var(--font-mono);font-size:7px;color:" + txtColor + ";padding:4px 5px;";
+      body.appendChild(prompt);
+    }
+    win.appendChild(body);
+
+    // Window index label (terminals only)
+    if (!isBrowser && !isOtherApp) {
+      var idx = createEl("span", "preview-window-index", String(currentTermIdx + 1));
+      win.appendChild(idx);
+    }
+
+    // Drop target (terminals only, not other apps)
+    if (!isBrowser && !isOtherApp) {
+      (function(tIdx) {
+        win.addEventListener("dragover", function(e) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = "copy";
+          win.classList.add("drop-hover");
+        });
+        win.addEventListener("dragleave", function() {
+          win.classList.remove("drop-hover");
+        });
+        win.addEventListener("drop", function(e) {
+          e.preventDefault();
+          win.classList.remove("drop-hover");
+          if (!dragData) return;
+          // Ensure overrides array is long enough
+          while (state.windowOverrides.length <= tIdx) state.windowOverrides.push(null);
+          if (dragData.type === "color") {
+            state.windowOverrides[tIdx] = {color: dragData.value};
+          } else if (dragData.type === "theme") {
+            state.windowOverrides[tIdx] = {theme: dragData.value};
+          }
+          update();
+        });
+        // Double-click to clear override
+        win.addEventListener("dblclick", function(e) {
+          e.preventDefault();
+          if (tIdx < state.windowOverrides.length) {
+            state.windowOverrides[tIdx] = null;
+          }
+          update();
+        });
+      })(currentTermIdx);
+    }
+
     area.appendChild(win);
   });
 }
@@ -714,64 +1407,109 @@ function calculateLayout(count, layout) {
     for (var i = 0; i < count; i++) {
       rects.push([gap, gap, 1 - gap, 1 - gap]);
     }
+  } else if (layout === "hub-sides") {
+    // Browser center 45%, terminals stacked left/right
+    var bw = 0.45;
+    var bl = (1 - bw) / 2;
+    rects.push({ browser: true, rect: [bl, gap, bl + bw, 1 - gap] });
+    var leftCount = Math.ceil(count / 2);
+    var rightCount = count - leftCount;
+    var th = function(n) { return (1 - gap * 2 - rowGap * (n - 1)) / n; };
+    for (var i = 0; i < leftCount; i++) {
+      var h = th(leftCount);
+      var t = gap + i * (h + rowGap);
+      rects.push([gap, t, bl - gap, t + h]);
+    }
+    for (var i = 0; i < rightCount; i++) {
+      var h = th(rightCount);
+      var t = gap + i * (h + rowGap);
+      rects.push([bl + bw + gap, t, 1 - gap, t + h]);
+    }
+  } else if (layout === "hub-columns") {
+    // Browser center 35%, full-height terminal columns on each side
+    var bw = 0.35;
+    var bl = (1 - bw) / 2;
+    rects.push({ browser: true, rect: [bl, gap, bl + bw, 1 - gap] });
+    var leftCount = Math.floor(count / 2);
+    var rightCount = count - leftCount;
+    if (leftCount > 0) {
+      var cw = (bl - gap * 2) / leftCount;
+      for (var i = 0; i < leftCount; i++) {
+        var l = gap + i * (cw + gap);
+        rects.push([l, gap, l + cw, 1 - gap]);
+      }
+    }
+    if (rightCount > 0) {
+      var rx = bl + bw + gap;
+      var cw = (1 - rx - gap) / rightCount;
+      for (var i = 0; i < rightCount; i++) {
+        var l = rx + i * (cw + gap);
+        rects.push([l, gap, l + cw, 1 - gap]);
+      }
+    }
+  } else if (layout === "hub-side-left") {
+    // Browser on left 55%, terminals stacked on right
+    var bw = 0.55;
+    rects.push({ browser: true, rect: [gap, gap, bw, 1 - gap] });
+    var th = (1 - gap * 2 - rowGap * (count - 1)) / count;
+    for (var i = 0; i < count; i++) {
+      var t = gap + i * (th + rowGap);
+      rects.push([bw + gap, t, 1 - gap, t + th]);
+    }
+  } else if (layout === "hub-side-right") {
+    // Browser on right 55%, terminals stacked on left
+    var bw = 0.55;
+    var bl = 1 - bw;
+    rects.push({ browser: true, rect: [bl, gap, 1 - gap, 1 - gap] });
+    var th = (1 - gap * 2 - rowGap * (count - 1)) / count;
+    for (var i = 0; i < count; i++) {
+      var t = gap + i * (th + rowGap);
+      rects.push([gap, t, bl - gap, t + th]);
+    }
+  } else if (layout === "hub-grid") {
+    // Browser center 40%x45%, terminals in corners/edges
+    var bw = 0.40, bh = 0.45;
+    var bl = (1 - bw) / 2, bt = (1 - bh) / 2;
+    rects.push({ browser: true, rect: [bl, bt, bl + bw, bt + bh] });
+    // Place terminals around edges
+    var positions = [
+      [gap, gap, bl - gap, bt - rowGap],               // top-left
+      [bl + bw + gap, gap, 1 - gap, bt - rowGap],      // top-right
+      [gap, bt + bh + rowGap, bl - gap, 1 - gap],      // bottom-left
+      [bl + bw + gap, bt + bh + rowGap, 1 - gap, 1 - gap], // bottom-right
+      [bl, gap, bl + bw, bt - rowGap],                  // top-center
+      [bl, bt + bh + rowGap, bl + bw, 1 - gap],        // bottom-center
+      [gap, bt, bl - gap, bt + bh],                     // mid-left
+      [bl + bw + gap, bt, 1 - gap, bt + bh],           // mid-right
+    ];
+    for (var i = 0; i < count && i < positions.length; i++) {
+      rects.push(positions[i]);
+    }
+  } else if (layout === "hub-top") {
+    // Terminals in row across top 38%, browser takes bottom
+    var splitY = 0.38;
+    var tw = (1 - gap * (count + 1)) / count;
+    for (var i = 0; i < count; i++) {
+      var l = gap + i * (tw + gap);
+      rects.push([l, gap, l + tw, splitY]);
+    }
+    rects.unshift({ browser: true, rect: [gap, splitY + rowGap, 1 - gap, 1 - gap] });
+  } else if (layout === "hub-stack") {
+    // Browser takes top 55%, terminals in row across bottom
+    var splitY = 0.55;
+    rects.push({ browser: true, rect: [gap, gap, 1 - gap, splitY] });
+    var tw = (1 - gap * (count + 1)) / count;
+    for (var i = 0; i < count; i++) {
+      var l = gap + i * (tw + gap);
+      rects.push([l, splitY + rowGap, l + tw, 1 - gap]);
+    }
   }
   return rects;
 }
 
-function buildCommand() {
-  var parts = ["python3", SCRIPT_PATH];
-  parts.push("--count", state.count);
-  parts.push("--layout", state.layout);
-
-  var theme = document.getElementById("themeSelect").value;
-  if (theme) {
-    parts.push("--theme", '"' + theme + '"');
-  } else {
-    parts.push("--mode", state.mode);
-  }
-
-  var cmds = document.getElementById("commandsInput").value.trim();
-  if (cmds) parts.push("--commands", '"' + cmds + '"');
-
-  if (document.getElementById("toggleRestyle").checked) parts.push("--restyle");
-  if (document.getElementById("toggleIncludeAll").checked) parts.push("--include-all");
-  if (document.getElementById("toggleAllNew").checked) parts.push("--all-new");
-  if (document.getElementById("toggleNotify").checked) parts.push("--notify");
-  if (document.getElementById("toggleNoClaude").checked) parts.push("--no-claude");
-
-  return parts.join(" ");
-}
-
-function updateCommand() {
-  document.getElementById("commandText").textContent = buildCommand();
-}
-
-function copyCommand() {
-  var cmd = buildCommand();
-  navigator.clipboard.writeText(cmd).then(function() {
-    var el = document.getElementById("commandOutput");
-    var hint = document.getElementById("copyHint");
-    el.classList.add("copied");
-    hint.textContent = "Copied";
-    setTimeout(function() {
-      el.classList.remove("copied");
-      hint.textContent = "Click to copy";
-    }, 1500);
-  });
-}
-
-function runCommand() {
-  var cmd = buildCommand();
-  navigator.clipboard.writeText(cmd).then(function() {
-    var btn = document.querySelector(".btn-primary");
-    btn.textContent = "Copied. Paste into Terminal.";
-    setTimeout(function() { btn.textContent = "Run"; }, 2000);
-  });
-}
-
 function update() {
+  buildLayoutThumbnails();
   updatePreview();
-  updateCommand();
 }
 
 document.querySelectorAll("input, select").forEach(function(el) {
@@ -779,8 +1517,462 @@ document.querySelectorAll("input, select").forEach(function(el) {
   el.addEventListener("input", update);
 });
 
+function submitWaitlist(btn) {
+  var form = btn.closest('.footer-waitlist-form');
+  var input = form.querySelector('.footer-waitlist-email');
+  var msg = form.querySelector('.footer-waitlist-msg');
+  var email = input.value.trim();
+  if (!email || !email.includes('@')) { msg.style.color = 'var(--red)'; msg.textContent = 'Enter a valid email'; return; }
+  msg.style.color = 'var(--champagne)'; msg.textContent = 'Sending...';
+  fetch('https://jgwillis.com/api/waitlist', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, list: 'pro-tools' })
+  }).then(function(r) { return r.json(); })
+    .then(function() { msg.style.color = 'var(--green)'; msg.textContent = 'You are on the list!'; input.value = ''; })
+    .catch(function() { msg.style.color = 'var(--green)'; msg.textContent = 'You are on the list!'; input.value = ''; });
+  document.addEventListener('click', function close(e) {
+    if (!e.target.closest('.footer-waitlist')) { form.classList.remove('open'); document.removeEventListener('click', close); }
+  });
+}
+
+// --- Settings persistence ---
+
+function saveState() {
+  // Build per-window colors string for the CLI
+  var customColors = [];
+  var hasOverrides = false;
+  for (var i = 0; i < state.count; i++) {
+    var c = getWindowColor(i);
+    customColors.push(c);
+    if (state.windowOverrides[i]) hasOverrides = true;
+  }
+
+  var toSave = {
+    layout: state.layout,
+    mode: state.mode,
+    count: state.count,
+    include: state.include,
+    noClaude: !document.getElementById("toggleAutoClaude").checked,
+    notify: document.getElementById("toggleNotify").checked,
+    sound: document.getElementById("toggleSound").checked,
+    soundName: document.getElementById("soundName").value,
+    soundVolume: parseInt(document.getElementById("soundVolume").value) / 100,
+    skipPerms: document.getElementById("toggleSkipPerms").checked,
+    highlightColor: document.getElementById("highlightColorInput").value,
+    commands: document.getElementById("commandsInput").value,
+    windowOverrides: state.windowOverrides,
+  };
+  // If there are per-window overrides, pass as custom colors for the CLI
+  if (hasOverrides) {
+    toSave.colors = customColors.join(",");
+  }
+  try { localStorage.setItem("mt-config", JSON.stringify(toSave)); } catch(e) {}
+
+  // Save to server if available
+  if (serverAvailable) {
+    fetch("/api/config", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(toSave)
+    }).catch(function() {});
+  }
+
+  // Flash save indicator
+  var ind = document.getElementById("saveIndicator");
+  ind.classList.add("visible");
+  clearTimeout(ind._timer);
+  ind._timer = setTimeout(function() { ind.classList.remove("visible"); }, 1500);
+}
+
+function loadState() {
+  var saved = null;
+  try {
+    var raw = localStorage.getItem("mt-config");
+    if (raw) saved = JSON.parse(raw);
+  } catch(e) {}
+  if (!saved) return;
+
+  if (saved.layout) { state.layout = saved.layout; }
+  if (saved.mode) { state.mode = saved.mode; }
+  if (saved.count) { state.count = Math.max(1, saved.count); }
+  if (saved.include) {
+    // Migrate old two-state values for hub layouts
+    var isHub = state.layout.indexOf("hub-") === 0;
+    if (saved.include === "terminals" && isHub) {
+      state.include = "browser-terminals";
+    } else {
+      state.include = saved.include;
+    }
+  }
+
+  // Apply to DOM
+  document.getElementById("countDisplay").textContent = state.count;
+  syncIncludeButtons();
+
+  if (saved.noClaude !== undefined) document.getElementById("toggleAutoClaude").checked = !saved.noClaude;
+  if (saved.notify !== undefined) document.getElementById("toggleNotify").checked = saved.notify;
+  if (saved.sound !== undefined) document.getElementById("toggleSound").checked = saved.sound;
+  if (saved.soundName) document.getElementById("soundName").value = saved.soundName;
+  if (saved.soundVolume !== undefined) {
+    var pct = Math.round(saved.soundVolume * 100);
+    document.getElementById("soundVolume").value = pct;
+    document.getElementById("soundVolumeLabel").textContent = pct + "%";
+  }
+  if (window._showHideSoundSettings) window._showHideSoundSettings();
+  if (window._showHideDangerWarning) window._showHideDangerWarning();
+  if (saved.skipPerms !== undefined) document.getElementById("toggleSkipPerms").checked = saved.skipPerms;
+  if (saved.highlightColor) {
+    document.getElementById("highlightColorInput").value = saved.highlightColor;
+    document.getElementById("highlightSwatch").style.background = saved.highlightColor;
+  }
+  if (saved.commands) document.getElementById("commandsInput").value = saved.commands;
+  if (saved.windowOverrides) state.windowOverrides = saved.windowOverrides;
+}
+
+// Auto-save on every update
+var _origUpdate = update;
+function update() {
+  buildLayoutThumbnails();
+  updatePreview();
+  saveState();
+}
+
+// --- Active windows ---
+
+function useActiveCount(type) {
+  var n = (type === "terminals") ? activeTerminals : activeTotal;
+  if (n > 0) {
+    state.count = n;
+    document.getElementById("countDisplay").textContent = n;
+    var isHub = state.layout.indexOf("hub-") === 0;
+    if (type === "terminals") {
+      setInclude(isHub ? "browser-terminals" : "terminals");
+    } else {
+      setInclude("all");
+    }
+    document.getElementById("activeTerminalsPill").classList.toggle("selected", type === "terminals");
+    document.getElementById("activeAllPill").classList.toggle("selected", type === "all");
+    update();
+  }
+}
+
+function pollActiveWindows() {
+  fetch("/api/active-windows")
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      activeTerminals = data.terminalCount || 0;
+      activeTotal = data.totalCount || 0;
+      document.getElementById("activeTerminalCount").textContent = activeTerminals;
+      document.getElementById("activeAllCount").textContent = activeTotal;
+
+      // Highlight only the pill matching current include mode
+      var showTerminals = (state.include === "terminals" || state.include === "browser-terminals") && state.count === activeTerminals && activeTerminals > 0;
+      var showAll = state.include === "all" && state.count === activeTotal && activeTotal > 0;
+      document.getElementById("activeTerminalsPill").classList.toggle("selected", showTerminals);
+      document.getElementById("activeAllPill").classList.toggle("selected", showAll);
+    })
+    .catch(function() {});
+}
+
+// --- Launch / Restyle actions ---
+
+function getRequestBody() {
+  var body = {
+    count: state.count,
+    layout: state.layout,
+    includeAll: state.include === "all",
+    includeBrowser: state.include === "browser-terminals" || state.include === "all",
+    noClaude: !document.getElementById("toggleAutoClaude").checked,
+    notify: document.getElementById("toggleNotify").checked,
+    sound: document.getElementById("toggleSound").checked,
+    soundName: document.getElementById("soundName").value,
+    soundVolume: parseInt(document.getElementById("soundVolume").value) / 100,
+    skipPerms: document.getElementById("toggleSkipPerms").checked,
+    highlightColor: document.getElementById("highlightColorInput").value,
+  };
+  // Check for per-window overrides
+  var hasOverrides = state.windowOverrides.some(function(o) { return o !== null; });
+  if (hasOverrides) {
+    var customColors = [];
+    for (var i = 0; i < state.count; i++) customColors.push(getWindowColor(i));
+    body.colors = customColors.join(",");
+  } else {
+    body.mode = state.mode;
+  }
+  var commands = document.getElementById("commandsInput").value.trim();
+  if (commands) body.commands = commands;
+  return body;
+}
+
+function doAction(endpoint, btn) {
+  var status = document.getElementById("actionStatus");
+  var origText = btn.textContent;
+  btn.textContent = "Working...";
+  btn.disabled = true;
+  status.textContent = "";
+  status.className = "action-status";
+
+  fetch(endpoint, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(getRequestBody())
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.ok) {
+      btn.textContent = "Done";
+      btn.classList.add("success");
+      status.textContent = data.output;
+      setTimeout(function() {
+        btn.textContent = origText;
+        btn.classList.remove("success");
+        btn.disabled = false;
+      }, 2000);
+      // Refresh window count after action
+      setTimeout(pollActiveWindows, 1000);
+    } else {
+      btn.textContent = origText;
+      btn.disabled = false;
+      status.textContent = data.error || "Failed";
+      status.className = "action-status error";
+    }
+  })
+  .catch(function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+    status.textContent = "Connection error";
+    status.className = "action-status error";
+  });
+}
+
+function doApply() { doAction("/api/apply", document.getElementById("applyBtn")); }
+
+// --- Server detection ---
+
+function detectServer() {
+  fetch("/api/heartbeat")
+    .then(function(r) { return r.json(); })
+    .then(function() {
+      serverAvailable = true;
+      document.getElementById("actionSection").style.display = "";
+      document.getElementById("noServerMsg").style.display = "none";
+      document.getElementById("activeTerminalsPill").style.display = "";
+      document.getElementById("activeAllPill").style.display = "";
+      pollActiveWindows();
+      setInterval(pollActiveWindows, 5000);
+      // Heartbeat to keep server alive
+      setInterval(function() { fetch("/api/heartbeat").catch(function() {}); }, 4000);
+      // Load server config (may be newer than localStorage)
+      fetch("/api/config")
+        .then(function(r) { return r.json(); })
+        .then(function(cfg) {
+          if (cfg && cfg.layout) {
+            try { localStorage.setItem("mt-config", JSON.stringify(cfg)); } catch(e) {}
+            loadState();
+            buildModeSwatches();
+            update();
+          }
+        })
+        .catch(function() {});
+    })
+    .catch(function() {
+      // No server, file:// mode
+      document.getElementById("actionSection").style.display = "none";
+      document.getElementById("activeTerminalsPill").style.display = "none";
+      document.getElementById("activeAllPill").style.display = "none";
+      document.getElementById("noServerMsg").style.display = "";
+    });
+}
+
+// --- Presets ---
+
+function getPresets() {
+  try { return JSON.parse(localStorage.getItem("mt-presets") || "[]"); } catch(e) { return []; }
+}
+
+function savePresets(presets) {
+  try { localStorage.setItem("mt-presets", JSON.stringify(presets)); } catch(e) {}
+}
+
+function savePreset() {
+  var name = prompt("Preset name:");
+  if (!name || !name.trim()) return;
+  name = name.trim();
+  var preset = {
+    name: name,
+    layout: state.layout,
+    mode: state.mode,
+    count: state.count,
+    include: state.include,
+    windowOverrides: state.windowOverrides.slice(),
+    noClaude: !document.getElementById("toggleAutoClaude").checked,
+    notify: document.getElementById("toggleNotify").checked,
+    sound: document.getElementById("toggleSound").checked,
+    soundName: document.getElementById("soundName").value,
+    soundVolume: parseInt(document.getElementById("soundVolume").value) / 100,
+    skipPerms: document.getElementById("toggleSkipPerms").checked,
+    highlightColor: document.getElementById("highlightColorInput").value,
+    commands: document.getElementById("commandsInput").value,
+  };
+  var presets = getPresets();
+  // Replace if same name exists
+  presets = presets.filter(function(p) { return p.name !== name; });
+  presets.push(preset);
+  savePresets(presets);
+  renderPresets();
+}
+
+function loadPreset(name) {
+  var presets = getPresets();
+  var preset = presets.find(function(p) { return p.name === name; });
+  if (!preset) return;
+  state.layout = preset.layout || "side-by-side";
+  state.mode = preset.mode || "ocean";
+  state.count = preset.count || 3;
+  state.include = preset.include || "terminals";
+  state.windowOverrides = preset.windowOverrides || [];
+  document.getElementById("countDisplay").textContent = state.count;
+  syncIncludeButtons();
+  if (preset.noClaude !== undefined) document.getElementById("toggleAutoClaude").checked = !preset.noClaude;
+  if (preset.notify !== undefined) document.getElementById("toggleNotify").checked = preset.notify;
+  if (preset.sound !== undefined) document.getElementById("toggleSound").checked = preset.sound;
+  if (preset.soundName) document.getElementById("soundName").value = preset.soundName;
+  if (preset.soundVolume !== undefined) {
+    var pct = Math.round(preset.soundVolume * 100);
+    document.getElementById("soundVolume").value = pct;
+    document.getElementById("soundVolumeLabel").textContent = pct + "%";
+  }
+  if (preset.skipPerms !== undefined) document.getElementById("toggleSkipPerms").checked = preset.skipPerms;
+  if (preset.highlightColor) {
+    document.getElementById("highlightColorInput").value = preset.highlightColor;
+    document.getElementById("highlightSwatch").style.background = preset.highlightColor;
+  }
+  if (preset.commands !== undefined) document.getElementById("commandsInput").value = preset.commands || "";
+  if (window._showHideSoundSettings) window._showHideSoundSettings();
+  if (window._showHideDangerWarning) window._showHideDangerWarning();
+  buildModeSwatches();
+  update();
+}
+
+function deletePreset(name) {
+  var presets = getPresets().filter(function(p) { return p.name !== name; });
+  savePresets(presets);
+  renderPresets();
+}
+
+function renderPresets() {
+  var container = document.getElementById("presetList");
+  container.innerHTML = "";
+  var presets = getPresets();
+  if (presets.length === 0) {
+    var hint = createEl("span", "", "No saved presets");
+    hint.style.cssText = "font-size:11px;color:rgba(28,28,30,0.3);font-family:var(--font-mono);";
+    container.appendChild(hint);
+    return;
+  }
+  presets.forEach(function(p) {
+    var chip = createEl("div", "");
+    chip.style.cssText = "display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:1px solid rgba(28,28,30,0.12);background:white;cursor:pointer;font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:0.03em;";
+    var label = createEl("span", "", p.name);
+    label.onclick = function() { loadPreset(p.name); };
+    var del = createEl("span", "", "x");
+    del.style.cssText = "color:rgba(28,28,30,0.35);cursor:pointer;margin-left:4px;font-size:11px;font-weight:600;line-height:1;padding:2px 4px;border-radius:3px;transition:all 0.15s;";
+    del.addEventListener("mouseenter", function() { del.style.color = "var(--red)"; del.style.background = "var(--red-bg)"; });
+    del.addEventListener("mouseleave", function() { del.style.color = "rgba(28,28,30,0.35)"; del.style.background = "transparent"; });
+    del.onclick = function(e) { e.stopPropagation(); deletePreset(p.name); };
+    chip.appendChild(label);
+    chip.appendChild(del);
+    container.appendChild(chip);
+  });
+}
+
+// --- Highlight color swatch ---
+(function() {
+  var swatch = document.getElementById("highlightSwatch");
+  var input = document.getElementById("highlightColorInput");
+  input.addEventListener("input", function() {
+    swatch.style.background = input.value;
+    saveState();
+  });
+  // Drop target
+  swatch.addEventListener("dragover", function(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+    swatch.style.transform = "scale(1.15)";
+    swatch.style.boxShadow = "0 0 0 3px var(--champagne)";
+  });
+  swatch.addEventListener("dragleave", function() {
+    swatch.style.transform = "";
+    swatch.style.boxShadow = "";
+  });
+  swatch.addEventListener("drop", function(e) {
+    e.preventDefault();
+    swatch.style.transform = "";
+    swatch.style.boxShadow = "";
+    if (!dragData) return;
+    var color = dragData.type === "color" ? dragData.value : (dragData.bg || dragData.value);
+    input.value = color;
+    swatch.style.background = color;
+    saveState();
+  });
+})();
+
+// --- Sound settings ---
+(function() {
+  var toggle = document.getElementById("toggleSound");
+  var row = document.getElementById("soundSettingsRow");
+  var nameSelect = document.getElementById("soundName");
+  var volumeSlider = document.getElementById("soundVolume");
+  var volumeLabel = document.getElementById("soundVolumeLabel");
+
+  function showHideSettings() {
+    row.style.display = toggle.checked ? "block" : "none";
+  }
+  toggle.addEventListener("change", showHideSettings);
+
+  function testSound() {
+    if (!serverAvailable) return;
+    fetch("/api/test-sound", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({soundName: nameSelect.value, soundVolume: parseInt(volumeSlider.value) / 100})
+    }).catch(function() {});
+  }
+
+  nameSelect.addEventListener("change", function() {
+    testSound();
+    saveState();
+  });
+  volumeSlider.addEventListener("input", function() {
+    volumeLabel.textContent = volumeSlider.value + "%";
+  });
+  volumeSlider.addEventListener("change", function() {
+    testSound();
+    saveState();
+  });
+
+  // Expose for loadState
+  window._showHideSoundSettings = showHideSettings;
+})();
+
+// --- Danger toggle warning ---
+(function() {
+  var toggle = document.getElementById("toggleSkipPerms");
+  var warning = document.getElementById("dangerWarning");
+  function showHide() { warning.style.display = toggle.checked ? "block" : "none"; }
+  toggle.addEventListener("change", showHide);
+  window._showHideDangerWarning = showHide;
+})();
+
+// --- Init ---
+
+loadState();
 buildModeSwatches();
+buildColorChips();
+buildThemeChips();
+renderPresets();
 update();
+detectServer();
 </script>
 </body>
 </html>

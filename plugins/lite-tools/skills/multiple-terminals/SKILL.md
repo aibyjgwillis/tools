@@ -10,23 +10,38 @@ When this skill is invoked, determine the user's intent:
 
 ## 1. Quick Launch (default, most common)
 
-If the user just wants terminals opened with their preferences, run the script directly. Do NOT open the configurator UI. Parse the user's request for parameters and run:
+If the user just wants terminals opened with their preferences, run the script directly. Do NOT open the configurator UI.
+
+**IMPORTANT**: If the user says something generic like "setup my terminals" or "launch terminals" without specifying parameters, use `--use-config` to load their saved preferences:
+
+```bash
+python3 ${CLAUDE_PLUGIN_ROOT}/skills/multiple-terminals/multiple-terminals.py --use-config
+```
+
+If the user specifies parameters, parse them and run:
 
 ```bash
 python3 ${CLAUDE_PLUGIN_ROOT}/skills/multiple-terminals/multiple-terminals.py --count N --layout LAYOUT
 ```
 
 Optional flags:
-- `--mode NAME` for a color palette (ocean, forest, sunset, berry, earth, mono, warm, cool)
+- `--use-config` to load saved settings from `~/.config/lite-tools/multiple-terminals.json`
+- `--mode NAME` for a color palette (ocean, forest, sunset, berry, earth, mono, warm, cool, classic, stealth, tactical, carbon, midnight, mermaid, pastel, neutrals, mint, moody, leather, claude)
 - `--theme "NAME"` for a Terminal.app theme (Pro, Homebrew, Ocean, Red Sands, Grass, Man Page, Novel, Basic, Silver Aerogel)
 - `--colors "#hex1,#hex2,#hex3"` for custom colors
 - `--commands "cmd1,cmd2,cmd3"` for custom commands per window
 - `--no-claude` to skip auto-launching claude
-- `--notify` to play sounds when claude finishes or needs input
+- `--notify` to enable idle highlighting (background color change when claude is waiting)
+- `--sound` to play a sound when claude finishes or needs input
+- `--sound-name NAME` system sound name (Submarine, Pop, Purr, Glass, Bottle, Blow, Tink, Ping, Morse, Hero, Funk)
+- `--sound-volume 0.0-1.0` notification volume (default 0.2)
+- `--highlight-color "#hex"` idle highlight background color
+- `--skip-perms` to run claude with --dangerously-skip-permissions
 - `--all-new` to open all new windows (default reuses current terminal)
 - `--include-all` to resize all visible windows (browsers, editors, etc.) alongside terminals
+- `--layout hub-sides|hub-columns|hub-grid|hub-top|hub-bottom` for browser-centered layouts
 
-Defaults: 3 windows, side-by-side, ocean mode, claude running in each, reuses current terminal.
+Defaults: 3 windows, side-by-side, ocean mode, claude running in each, reuses current terminal. When `--use-config` is used, all defaults come from the saved config instead.
 
 **Limitation:** Only detects and organizes Terminal windows on the active desktop. Windows on other macOS Spaces are ignored.
 
@@ -65,5 +80,6 @@ The `--restyle` flag skips opening new windows and instead applies the layout an
 - `/multiple-terminals restyle to ember` - change existing windows to ember colors
 - `/multiple-terminals 2 with Pro theme` - 2 terminals using Terminal.app Pro theme
 - `/multiple-terminals 3 with notifications` - 3 terminals with sound alerts
+- `/multiple-terminals 3 skip permissions` - 3 terminals with dangerously-skip-permissions
 
 Do NOT ask questions. Run immediately based on the user's request.
