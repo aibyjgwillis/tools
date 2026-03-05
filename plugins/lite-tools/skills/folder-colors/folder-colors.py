@@ -2047,6 +2047,7 @@ function setLayerColor(depth, hex) {
   layerEnabled[depth] = true;
   renderLayerTree();
   syncFolderSwatches();
+  updateFolderCount();
 }
 
 function clearLayerColor(depth) {
@@ -2065,6 +2066,7 @@ function clearLayerColor(depth) {
   if (activeLayerDepth < layerStartDepth) activeLayerDepth = layerStartDepth;
   renderLayerTree();
   syncFolderSwatches();
+  updateFolderCount();
 }
 
 function renderLayerTree() {
@@ -2145,7 +2147,7 @@ function renderLayerTree() {
   const addAboveBtn = createEl('button', {
     className: 'layer-add-btn',
     textContent: '+ parent level',
-    onClick: () => { layerStartDepth--; reapplyActiveLayerTheme(); renderLayerTree(); syncFolderSwatches(); }
+    onClick: () => { layerStartDepth--; reapplyActiveLayerTheme(); renderLayerTree(); syncFolderSwatches(); updateFolderCount(); }
   });
   if (!canGoUp) addAboveBtn.disabled = true;
   addAboveRow.appendChild(addAboveBtn);
@@ -2237,7 +2239,7 @@ function renderLayerTree() {
   const addBelowBtn = createEl('button', {
     className: 'layer-add-btn',
     textContent: '+ deeper level',
-    onClick: () => { layerEndDepth++; reapplyActiveLayerTheme(); renderLayerTree(); syncFolderSwatches(); }
+    onClick: () => { layerEndDepth++; reapplyActiveLayerTheme(); renderLayerTree(); syncFolderSwatches(); updateFolderCount(); }
   });
   if (!canGoDown) addBelowBtn.disabled = true;
   bottomRow.appendChild(addBelowBtn);
