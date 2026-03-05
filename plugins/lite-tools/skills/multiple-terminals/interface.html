@@ -649,13 +649,14 @@
     transform: translateX(-50%) translateY(12px);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     font-family: var(--font-mono);
-    background: var(--slate);
-    color: var(--ivory);
-    padding: 8px 10px 8px 16px;
+    background: white;
+    color: var(--slate);
+    padding: 8px 12px 8px 16px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border: 1.5px solid rgba(28,28,30,0.1);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
     opacity: 0;
     transition: opacity 0.2s, transform 0.2s;
     pointer-events: none;
@@ -671,6 +672,7 @@
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.02em;
+    color: rgba(28,28,30,0.5);
   }
   .editing-bar .bar-name {
     font-weight: 700;
@@ -678,36 +680,39 @@
   }
   .editing-bar .bar-btn {
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 6px;
-    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(28,28,30,0.1);
     cursor: pointer;
     transition: all 0.15s;
   }
   .editing-bar .bar-save {
-    background: var(--champagne);
-    color: var(--slate);
-  }
-  .editing-bar .bar-save:hover { filter: brightness(1.1); }
-  .editing-bar .bar-save-new {
-    background: rgba(255,255,255,0.1);
-    color: var(--champagne);
-  }
-  .editing-bar .bar-save-new:hover { background: rgba(255,255,255,0.18); }
-  .editing-bar .bar-delete {
-    background: rgba(255,255,255,0.1);
-    color: var(--red);
-  }
-  .editing-bar .bar-delete:hover { background: rgba(180,60,60,0.2); }
-  .editing-bar .bar-dismiss {
-    background: rgba(255,255,255,0.1);
+    background: var(--slate);
     color: var(--ivory);
+    border-color: var(--slate);
   }
-  .editing-bar .bar-dismiss:hover { background: rgba(255,255,255,0.18); }
+  .editing-bar .bar-save:hover { background: var(--obsidian); }
+  .editing-bar .bar-save-new {
+    background: white;
+    color: var(--champagne);
+    border-color: var(--champagne);
+  }
+  .editing-bar .bar-save-new:hover { background: rgba(90,125,150,0.06); }
+  .editing-bar .bar-delete {
+    background: white;
+    color: var(--red);
+    border-color: rgba(180,60,60,0.2);
+  }
+  .editing-bar .bar-delete:hover { background: var(--red-bg); }
+  .editing-bar .bar-dismiss {
+    background: white;
+    color: rgba(28,28,30,0.45);
+  }
+  .editing-bar .bar-dismiss:hover { background: rgba(28,28,30,0.04); }
 
 </style>
 </head>
@@ -2159,6 +2164,15 @@ buildThemeChips();
 renderPresets();
 update();
 detectServer();
+
+// Click outside preset bar to cancel
+document.addEventListener("click", function(e) {
+  if (!state.activePreset) return;
+  var bar = document.getElementById("editingBar");
+  var presetCard = document.getElementById("presetList").closest(".card");
+  if (bar.contains(e.target) || presetCard.contains(e.target)) return;
+  cancelPreset();
+});
 </script>
 <div class="editing-bar" id="editingBar">
   <span class="bar-label">Modifying <span class="bar-name" id="editingBarName"></span></span>
