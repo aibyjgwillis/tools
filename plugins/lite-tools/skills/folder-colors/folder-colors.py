@@ -1548,7 +1548,7 @@ function getColorForFolder(folder, depth) {
   return null; // not set
 }
 
-// Get the folder name for a given depth relative to base path
+// Get label showing real folder names at each depth
 function getLayerLabel(depth) {
   if (depth < 0) {
     let parts = currentBasePath.split('/').filter(Boolean);
@@ -1560,11 +1560,25 @@ function getLayerLabel(depth) {
     }
     return '/';
   }
-  if (depth === 0) return 'Top-level folders';
-  if (depth === 1) return 'Subfolders';
-  if (depth === 2) return 'Sub-subfolders';
-  if (depth === 3) return 'Level 4 deep';
-  return 'Level ' + (depth + 1) + ' deep';
+  // Collect folder names at this depth from the loaded tree
+  function collectNames(items, currentDepth) {
+    if (currentDepth === depth) return items.map(i => i.name);
+    const names = [];
+    for (const item of items) {
+      if (item.subs && item.subs.length) {
+        names.push(...collectNames(item.subs, currentDepth + 1));
+      }
+    }
+    return names;
+  }
+  const names = collectNames(manualFolders, 0);
+  if (names.length === 0) {
+    if (depth === 0) return 'Top-level folders';
+    if (depth === 1) return 'Subfolders';
+    return 'Depth ' + (depth + 1);
+  }
+  if (names.length <= 3) return names.join(', ');
+  return names.slice(0, 2).join(', ') + ', +' + (names.length - 2) + ' more';
 }
 
 function getLayerSublabelForRow(depth) {
