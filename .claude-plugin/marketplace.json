@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "aibyjgwillis-tools",
+  "description": "Free collection of useful Claude Code tools",
+  "owner": {
+    "name": "aibyjgwillis"
+  },
+  "plugins": [
+    {
+      "name": "tools",
+      "description": "Free collection of useful Claude Code tools including folder coloring, and more to come.",
+      "version": "1.0.0",
+      "author": {
+        "name": "aibyjgwillis"
+      },
+      "source": ".",
+      "category": "productivity"
+    }
+  ]
+}
