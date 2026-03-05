@@ -560,6 +560,7 @@ let outputDir = 'Downloads/rapid-download';
 
 /* ==THEME:HEARTBEAT== */
 setInterval(() => { fetch('/api/heartbeat').catch(() => {}); }, 4000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) fetch('/api/heartbeat').catch(() => {}); });
 /* ==/THEME:HEARTBEAT== */
 
 // ===== REVIEW =====

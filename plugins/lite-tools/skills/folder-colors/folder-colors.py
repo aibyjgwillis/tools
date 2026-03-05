@@ -3113,6 +3113,7 @@ pollForLayers();
 
 // Heartbeat: tell server we're still here
 setInterval(() => { fetch('/api/heartbeat').catch(() => {}); }, 4000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) fetch('/api/heartbeat').catch(() => {}); });
 
 // Welcome banner (shows once, dismissed with localStorage)
 (function() {

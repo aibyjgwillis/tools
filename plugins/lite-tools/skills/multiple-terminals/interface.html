@@ -1853,6 +1853,7 @@ function detectServer() {
       setInterval(pollActiveWindows, 5000);
       // Heartbeat to keep server alive
       setInterval(function() { fetch("/api/heartbeat").catch(function() {}); }, 4000);
+      document.addEventListener("visibilitychange", function() { if (!document.hidden) fetch("/api/heartbeat").catch(function() {}); });
       // Load server config (may be newer than localStorage)
       fetch("/api/config")
         .then(function(r) { return r.json(); })
