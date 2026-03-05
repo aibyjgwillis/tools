@@ -2172,18 +2172,6 @@ renderPresets();
 update();
 detectServer();
 
-// Click outside preset area to dismiss preset editing
-document.addEventListener("mousedown", function(e) {
-  if (!state.activePreset) return;
-  var bar = document.getElementById("editingBar");
-  if (bar && bar.contains(e.target)) return;
-  var presetCard = document.getElementById("presetList");
-  if (presetCard) {
-    var card = presetCard.closest(".card");
-    if (card && card.contains(e.target)) return;
-  }
-  cancelPreset();
-});
 </script>
 <div class="editing-bar" id="editingBar">
   <span class="bar-label">Modifying <span class="bar-name" id="editingBarName"></span></span>
