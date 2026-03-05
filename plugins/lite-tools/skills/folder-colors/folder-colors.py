@@ -2592,7 +2592,8 @@ function updateFolderCount() {
   if (maxDepth === 0) {
     _lastFolderCount = depth0Enabled ? checkedCount : 0;
     if (!depth0Enabled) txt(el('manualListTitle'), label + ' (0 selected)');
-    totalEl.style.display = 'none';
+    totalEl.style.display = _lastFolderCount > 0 ? 'block' : 'none';
+    txt(totalEl, 'Total: ' + _lastFolderCount.toLocaleString());
     el('manualStatus').classList.remove('show');
     return;
   }
