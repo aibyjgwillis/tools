@@ -693,6 +693,11 @@
     color: var(--slate);
   }
   .editing-bar .bar-save:hover { filter: brightness(1.1); }
+  .editing-bar .bar-save-new {
+    background: rgba(255,255,255,0.1);
+    color: var(--champagne);
+  }
+  .editing-bar .bar-save-new:hover { background: rgba(255,255,255,0.18); }
   .editing-bar .bar-delete {
     background: rgba(255,255,255,0.1);
     color: var(--red);
@@ -783,8 +788,8 @@
       <span class="section-label" style="margin:0;">Presets</span>
       <div id="presetList" style="display:flex;gap:6px;flex-wrap:wrap;flex:1;"></div>
       <span id="presetToast" style="font-family:var(--font-mono);font-size:9px;font-weight:500;letter-spacing:0.04em;color:var(--champagne);opacity:0;transition:opacity 0.25s;white-space:nowrap;"></span>
-      <button class="apply-mode-btn" id="saveAsNewBtn" onclick="saveAsNewPreset()" style="white-space:nowrap;display:none;">Save as New</button>
-      <button class="apply-mode-btn" onclick="savePreset()" style="white-space:nowrap;">Save Preset</button>
+      <span id="presetHint" style="font-family:var(--font-mono);font-size:9px;color:rgba(28,28,30,0.35);letter-spacing:0.03em;white-space:nowrap;display:none;">Click a preset to edit</span>
+      <button class="apply-mode-btn" onclick="saveAsNewPreset()" style="white-space:nowrap;">Save as Preset</button>
     </div>
   </div>
 
@@ -1914,14 +1919,15 @@ function buildPresetData(name) {
 
 function updateEditingPill() {
   var bar = document.getElementById("editingBar");
-  var saveAsBtn = document.getElementById("saveAsNewBtn");
+  var hint = document.getElementById("presetHint");
   if (state.activePreset) {
     document.getElementById("editingBarName").textContent = state.activePreset;
     bar.classList.add("visible");
-    if (saveAsBtn) saveAsBtn.style.display = "";
+    if (hint) hint.style.display = "none";
   } else {
     bar.classList.remove("visible");
-    if (saveAsBtn) saveAsBtn.style.display = "none";
+    var hasPresets = getPresets().length > 0;
+    if (hint) hint.style.display = hasPresets ? "" : "none";
   }
 }
 
@@ -1946,6 +1952,21 @@ function deleteActivePreset() {
 }
 
 function saveAsNewPreset() {
+  var name = prompt("Preset name:");
+  if (!name || !name.trim()) return;
+  name = name.trim();
+  var preset = buildPresetData(name);
+  var presets = getPresets();
+  presets = presets.filter(function(p) { return p.name !== name; });
+  presets.push(preset);
+  savePresets(presets);
+  state.activePreset = null;
+  state._presetSnapshot = null;
+  renderPresets();
+  showPresetToast("Preset saved");
+}
+
+function saveAsNewFromBar() {
   var name = prompt("New preset name:");
   if (!name || !name.trim()) return;
   name = name.trim();
@@ -1954,8 +1975,8 @@ function saveAsNewPreset() {
   presets = presets.filter(function(p) { return p.name !== name; });
   presets.push(preset);
   savePresets(presets);
-  state.activePreset = name;
-  state._presetSnapshot = JSON.parse(JSON.stringify(preset));
+  state.activePreset = null;
+  state._presetSnapshot = null;
   renderPresets();
   showPresetToast("Preset saved");
 }
@@ -1984,8 +2005,8 @@ function savePreset() {
   presets = presets.filter(function(p) { return p.name !== name; });
   presets.push(preset);
   savePresets(presets);
-  state.activePreset = name;
-  state._presetSnapshot = JSON.parse(JSON.stringify(preset));
+  state.activePreset = null;
+  state._presetSnapshot = null;
   renderPresets();
   showPresetToast(wasOverwrite ? "Preset updated" : "Preset saved");
 }
@@ -2142,6 +2163,7 @@ detectServer();
 <div class="editing-bar" id="editingBar">
   <span class="bar-label">Modifying <span class="bar-name" id="editingBarName"></span></span>
   <button class="bar-btn bar-save" onclick="savePreset()">Save</button>
+  <button class="bar-btn bar-save-new" onclick="saveAsNewFromBar()">Save as New</button>
   <button class="bar-btn bar-delete" onclick="deleteActivePreset()">Delete</button>
   <button class="bar-btn bar-dismiss" onclick="cancelPreset()">Cancel</button>
 </div>
