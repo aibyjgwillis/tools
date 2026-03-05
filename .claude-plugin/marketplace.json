@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "lite-tools",
-      "description": "Free collection of Claude Code tools.",
+      "description": "Free collection of Claude Code tools. Includes: Folder Colors (tint macOS folder icons with any color).",
       "version": "1.0.0",
       "author": {
         "name": "aibyjgwillis"
