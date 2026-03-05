@@ -711,9 +711,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if path == "~":
                 path = HOME_DIR
             if not os.path.isdir(path):
-                self._json({"error": "Not a directory", "count": 0}, 400)
+                self._json({"error": "Not a directory", "count": 0, "by_depth": {}}, 400)
                 return
             count = 0
+            by_depth = {}
             def count_recursive(p, d):
                 nonlocal count
                 if d > max_depth:
@@ -723,11 +724,12 @@ class Handler(http.server.BaseHTTPRequestHandler):
                         full = os.path.join(p, name)
                         if os.path.isdir(full) and not name.startswith(".") and name != "Icon\r":
                             count += 1
+                            by_depth[d] = by_depth.get(d, 0) + 1
                             count_recursive(full, d + 1)
                 except PermissionError:
                     pass
             count_recursive(path, 0)
-            self._json({"path": path, "count": count})
+            self._json({"path": path, "count": count, "by_depth": by_depth})
         elif parsed.path == "/api/home":
             self._json({"home": HOME_DIR})
         elif parsed.path == "/api/folder-icon":
@@ -2604,15 +2606,25 @@ function updateFolderCount() {
   totalEl.style.display = 'block';
   const countingTimer = setTimeout(() => { txt(totalEl, 'Total folders selected: counting...'); }, 300);
 
-  // Count subfolders for each checked folder
+  // Count subfolders per depth for each checked folder
   const apiDepth = maxDepth - 1;
   const paths = manualFolders.filter(f => f.checked).map(f => f.path);
   Promise.all(paths.map(p =>
-    fetch('/api/count?path=' + encodeURIComponent(p) + '&depth=' + apiDepth, {signal}).then(r => r.json()).catch(() => ({count: 0}))
+    fetch('/api/count?path=' + encodeURIComponent(p) + '&depth=' + apiDepth, {signal}).then(r => r.json()).catch(() => ({count: 0, by_depth: {}}))
   )).then(counts => {
     clearTimeout(countingTimer);
     if (signal.aborted) return;
-    const subTotal = counts.reduce((sum, c) => sum + (c.count || 0), 0);
+    // Sum only folders at enabled depths
+    let subTotal = 0;
+    for (const c of counts) {
+      if (c.by_depth) {
+        for (const [d, n] of Object.entries(c.by_depth)) {
+          // API depth 0 = UI depth 1, API depth 1 = UI depth 2, etc.
+          const uiDepth = parseInt(d) + 1;
+          if (layerEnabled[uiDepth]) subTotal += n;
+        }
+      }
+    }
     const total = (depth0Enabled ? checkedCount : 0) + subTotal;
     _lastFolderCount = total;
     txt(totalEl, 'Total folders selected: ' + total.toLocaleString());
