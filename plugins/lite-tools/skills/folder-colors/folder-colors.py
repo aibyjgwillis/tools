@@ -1726,17 +1726,12 @@ function applyAiAsLayerTheme() {
 function reapplyActiveLayerTheme() {
   if (!activeLayerTheme || !LAYER_THEMES[activeLayerTheme]) return;
   const colors = LAYER_THEMES[activeLayerTheme];
-  const totalDepths = layerEndDepth - layerStartDepth + 1;
   for (let d = layerStartDepth; d <= layerEndDepth; d++) {
     const idx = d - layerStartDepth;
-    if (idx < colors.length) {
-      layerColors[d] = colors[idx];
-      layerEnabled[d] = true;
-    } else {
-      // Extrapolate: use the last color for depths beyond the theme length
-      layerColors[d] = colors[colors.length - 1];
-      layerEnabled[d] = true;
-    }
+    const color = idx < colors.length ? colors[idx] : colors[colors.length - 1];
+    // Only enable newly added levels (no color yet), preserve existing enabled state
+    if (!layerColors[d]) layerEnabled[d] = true;
+    layerColors[d] = color;
   }
   currentColor = layerColors[layerStartDepth];
   el('colorWheel').value = currentColor;
@@ -1772,11 +1767,10 @@ async function init() {
         document.querySelectorAll('#layerThemes .theme-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         activeLayerTheme = name;
-        // Only color existing levels; new levels get next theme color via reapplyActiveLayerTheme
+        // Only color existing levels; don't change which are enabled
         for (let d = layerStartDepth; d <= layerEndDepth; d++) {
           const idx = d - layerStartDepth;
           layerColors[d] = colors[Math.min(idx, colors.length - 1)];
-          layerEnabled[d] = true;
         }
         currentColor = colors[0];
         el('colorWheel').value = currentColor;
@@ -1785,6 +1779,7 @@ async function init() {
         updateColorUI();
         renderLayerTree();
         syncFolderSwatches();
+        updateFolderCount();
       }
     });
     // Build a mini gradient preview inside the button
