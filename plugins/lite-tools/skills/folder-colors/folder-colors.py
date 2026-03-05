@@ -1443,7 +1443,7 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
       <div id="manualFolderList" class="tree-container" style="display:none; margin-top:10px;">
         <div class="manual-list-header">
           <span class="manual-list-title" id="manualListTitle">Folders</span>
-          <span id="totalFolderCount" style="display:none; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--champagne); font-weight:500;"></span>
+          <span id="totalFolderCount" style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--champagne); font-weight:500;">Total folders selected: 0</span>
         </div>
         <div id="manualFolderItems"></div>
       </div>
@@ -2592,15 +2592,15 @@ function updateFolderCount() {
   if (maxDepth === 0) {
     _lastFolderCount = depth0Enabled ? checkedCount : 0;
     if (!depth0Enabled) txt(el('manualListTitle'), label + ' (0 selected)');
-    totalEl.style.display = _lastFolderCount > 0 ? 'block' : 'none';
-    txt(totalEl, 'Total: ' + _lastFolderCount.toLocaleString());
+    totalEl.style.display = 'block';
+    txt(totalEl, 'Total folders selected: ' + _lastFolderCount.toLocaleString());
     el('manualStatus').classList.remove('show');
     return;
   }
 
   // Show counting state
   totalEl.style.display = 'block';
-  txt(totalEl, 'Total: counting...');
+  txt(totalEl, 'Total folders selected: counting...');
 
   // Count subfolders for each checked folder
   const apiDepth = maxDepth - 1;
