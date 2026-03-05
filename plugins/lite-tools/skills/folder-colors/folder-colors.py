@@ -1772,10 +1772,11 @@ async function init() {
         document.querySelectorAll('#layerThemes .theme-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         activeLayerTheme = name;
-        layerEndDepth = layerStartDepth + colors.length - 1;
-        for (let d = 0; d < colors.length; d++) {
-          layerColors[layerStartDepth + d] = colors[d];
-          layerEnabled[layerStartDepth + d] = (d < 2);
+        // Only color existing levels; new levels get next theme color via reapplyActiveLayerTheme
+        for (let d = layerStartDepth; d <= layerEndDepth; d++) {
+          const idx = d - layerStartDepth;
+          layerColors[d] = colors[Math.min(idx, colors.length - 1)];
+          layerEnabled[d] = true;
         }
         currentColor = colors[0];
         el('colorWheel').value = currentColor;
