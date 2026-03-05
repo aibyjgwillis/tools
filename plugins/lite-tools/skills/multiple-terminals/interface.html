@@ -4,72 +4,124 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Multiple Terminals</title>
+<!-- ==THEME:FONTS== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- ==/THEME:FONTS== -->
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  /* ==THEME:VARS== */
   :root {
-    --bg: #0e1117;
-    --surface: #161b22;
-    --surface-2: #1c2128;
-    --border: #30363d;
-    --text: #e6edf3;
-    --text-muted: #8b949e;
-    --accent: #2c5f80;
-    --accent-hover: #3a6a8c;
+    --obsidian: #0F1114; --champagne: #5A7D96; --ivory: #F5F5F3;
+    --slate: #1C1C1E;
+    --font-heading: 'Inter', sans-serif;
+    --font-drama: 'Playfair Display', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --green: #2D8659; --green-bg: rgba(45,134,89,0.08);
+    --amber: #B8860B; --amber-bg: rgba(184,134,11,0.08);
+    --red: #C0392B; --red-bg: rgba(192,57,43,0.08);
   }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
+    font-family: var(--font-heading); background: var(--ivory);
+    color: var(--slate); min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
   }
+  /* ==/THEME:VARS== */
 
-  h1 {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    margin-bottom: 6px;
+  /* ==THEME:NOISE_CSS== */
+  .noise-overlay { position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.04; }
+  /* ==/THEME:NOISE_CSS== */
+
+  /* ==THEME:TOPBAR== */
+  .topbar {
+    width: 100%; min-height: 56px; padding: 0 36px; display: flex; align-items: center;
+    justify-content: space-between; border-bottom: 1px solid rgba(28,28,30,0.08);
   }
-
-  .subtitle {
-    color: var(--text-muted);
-    font-size: 13px;
-    margin-bottom: 32px;
+  .topbar-brand { font-weight: 700; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .topbar-pill {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    background: rgba(28,28,30,0.06); border-radius: 2rem; padding: 5px 14px;
+    color: var(--champagne);
   }
+  /* ==/THEME:TOPBAR== */
 
-  .container {
-    width: 100%;
-    max-width: 520px;
+  /* ==THEME:FADEIN== */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  /* ==/THEME:FADEIN== */
+
+  /* ==THEME:PAGE_TITLE== */
+  .page-title {
+    font-family: var(--font-drama); font-size: 32px; font-weight: 400;
+    font-style: italic; text-align: center; margin-bottom: 8px;
   }
+  .page-subtitle {
+    font-family: var(--font-mono); font-size: 12px; color: var(--champagne);
+    text-align: center; margin-bottom: 40px;
+  }
+  /* ==/THEME:PAGE_TITLE== */
 
+  /* ==THEME:SECTION_LABEL== */
+  .section-label {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--champagne);
+    margin-bottom: 12px;
+  }
+  /* ==/THEME:SECTION_LABEL== */
+
+  /* ==THEME:CARDS== */
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 16px;
+    background: white; border: 1px solid rgba(28,28,30,0.08);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
   }
+  .card-champagne { background: rgba(90,125,150,0.04); border-color: rgba(90,125,150,0.12); }
+  .card-amber { background: var(--amber-bg); border-color: rgba(184,134,11,0.15); }
+  /* ==/THEME:CARDS== */
 
-  .card-title {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-muted);
-    margin-bottom: 14px;
+  /* ==THEME:BUTTONS== */
+  .btn {
+    font-family: var(--font-heading); font-size: 13px; font-weight: 500;
+    padding: 10px 20px; border-radius: 8px; border: 1px solid transparent;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-primary { background: var(--slate); color: var(--ivory); }
+  .btn-primary:hover { background: var(--obsidian); }
+  .btn-secondary { background: white; border-color: rgba(28,28,30,0.15); color: var(--champagne); }
+  .btn-secondary:hover { border-color: rgba(28,28,30,0.45); color: var(--slate); }
+  /* ==/THEME:BUTTONS== */
+
+  /* ==THEME:FOOTER_CSS== */
+  .footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px 24px;
+    font-family: var(--font-mono); font-size: 10px; color: rgba(28,28,30,0.3);
+    background: linear-gradient(transparent, var(--ivory) 40%);
+    gap: 14px;
+  }
+  .footer a { color: var(--champagne); text-decoration: none; }
+  .footer a:hover { color: var(--slate); }
+  .footer-sep { opacity: 0.3; }
+  .footer-socials { display: flex; align-items: center; gap: 10px; }
+  .footer-socials a { display: flex; align-items: center; }
+  .footer-socials svg { width: 13px; height: 13px; fill: var(--champagne); opacity: 0.6; transition: opacity 0.2s; }
+  .footer-socials a:hover svg { opacity: 1; }
+  /* ==/THEME:FOOTER_CSS== */
+
+  /* ── Skill-specific styles ── */
+
+  .main-content {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    animation: fadeUp 0.5s ease both;
   }
 
   .row {
     display: flex;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
-
   .row:last-child { margin-bottom: 0; }
 
   .field {
@@ -79,26 +131,30 @@
     gap: 6px;
   }
 
-  label {
-    font-size: 12px;
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
     font-weight: 500;
-    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--champagne);
   }
 
-  select, input[type="number"], input[type="text"] {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
+  select, input[type="text"] {
+    font-family: var(--font-heading);
+    background: white;
+    border: 1px solid rgba(28,28,30,0.12);
+    border-radius: 8px;
+    color: var(--slate);
     font-size: 13px;
-    padding: 8px 10px;
+    padding: 9px 12px;
     outline: none;
     transition: border-color 0.15s;
     width: 100%;
   }
 
   select:focus, input:focus {
-    border-color: var(--accent);
+    border-color: var(--champagne);
   }
 
   select { cursor: pointer; }
@@ -106,60 +162,59 @@
   .count-control {
     display: flex;
     align-items: center;
-    gap: 0;
   }
 
   .count-btn {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    width: 34px;
-    height: 34px;
+    background: white;
+    border: 1px solid rgba(28,28,30,0.12);
+    color: var(--slate);
+    width: 36px;
+    height: 36px;
     font-size: 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s;
+    transition: all 0.15s;
   }
 
-  .count-btn:hover { background: var(--border); }
-  .count-btn:first-child { border-radius: 6px 0 0 6px; }
-  .count-btn:last-child { border-radius: 0 6px 6px 0; }
+  .count-btn:hover { background: rgba(28,28,30,0.04); border-color: rgba(28,28,30,0.25); }
+  .count-btn:first-child { border-radius: 8px 0 0 8px; }
+  .count-btn:last-child { border-radius: 0 8px 8px 0; }
 
   .count-display {
-    background: var(--surface-2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    width: 44px;
-    height: 34px;
+    background: white;
+    border-top: 1px solid rgba(28,28,30,0.12);
+    border-bottom: 1px solid rgba(28,28,30,0.12);
+    width: 48px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--font-mono);
     font-size: 14px;
     font-weight: 600;
-    font-variant-numeric: tabular-nums;
   }
 
+  /* Toggle rows */
   .toggle-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 10px 0;
   }
-
   .toggle-row + .toggle-row {
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(28,28,30,0.06);
   }
 
   .toggle-label {
     font-size: 13px;
-    color: var(--text);
+    font-weight: 500;
+    color: var(--slate);
   }
-
   .toggle-desc {
     font-size: 11px;
-    color: var(--text-muted);
+    color: var(--champagne);
     margin-top: 2px;
   }
 
@@ -169,41 +224,27 @@
     height: 22px;
     flex-shrink: 0;
   }
-
-  .toggle input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
+  .toggle input { opacity: 0; width: 0; height: 0; }
   .toggle-track {
     position: absolute;
     inset: 0;
-    background: var(--border);
+    background: rgba(28,28,30,0.12);
     border-radius: 11px;
     cursor: pointer;
     transition: background 0.2s;
   }
-
   .toggle-track::after {
     content: "";
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 18px;
-    height: 18px;
-    background: #fff;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    background: white;
     border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     transition: transform 0.2s;
   }
-
-  .toggle input:checked + .toggle-track {
-    background: var(--accent);
-  }
-
-  .toggle input:checked + .toggle-track::after {
-    transform: translateX(18px);
-  }
+  .toggle input:checked + .toggle-track { background: var(--champagne); }
+  .toggle input:checked + .toggle-track::after { transform: translateX(18px); }
 
   /* Color mode swatches */
   .mode-options {
@@ -215,45 +256,36 @@
   .mode-swatch {
     cursor: pointer;
     border: 2px solid transparent;
-    border-radius: 8px;
-    padding: 6px;
+    border-radius: 10px;
+    padding: 8px;
     text-align: center;
     transition: border-color 0.15s, background 0.15s;
-    background: var(--surface-2);
+    background: white;
   }
-
-  .mode-swatch:hover {
-    background: var(--border);
-  }
-
-  .mode-swatch.active {
-    border-color: var(--accent);
-  }
+  .mode-swatch:hover { background: rgba(90,125,150,0.04); }
+  .mode-swatch.active { border-color: var(--champagne); }
 
   .swatch-colors {
     display: flex;
     gap: 2px;
-    margin-bottom: 4px;
-    height: 16px;
-    border-radius: 3px;
+    margin-bottom: 6px;
+    height: 18px;
+    border-radius: 4px;
     overflow: hidden;
   }
-
-  .swatch-colors span {
-    flex: 1;
-  }
+  .swatch-colors span { flex: 1; }
 
   .mode-name {
-    font-size: 10px;
-    color: var(--text-muted);
-    text-transform: capitalize;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--champagne);
   }
+  .mode-swatch.active .mode-name { color: var(--slate); }
 
-  .mode-swatch.active .mode-name {
-    color: var(--text);
-  }
-
-  /* Layout preview */
+  /* Layout preview buttons */
   .layout-options {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -263,15 +295,14 @@
   .layout-option {
     cursor: pointer;
     border: 2px solid transparent;
-    border-radius: 8px;
-    padding: 10px 6px 6px;
+    border-radius: 10px;
+    padding: 10px 8px 8px;
     text-align: center;
     transition: border-color 0.15s, background 0.15s;
-    background: var(--surface-2);
+    background: white;
   }
-
-  .layout-option:hover { background: var(--border); }
-  .layout-option.active { border-color: var(--accent); }
+  .layout-option:hover { background: rgba(90,125,150,0.04); }
+  .layout-option.active { border-color: var(--champagne); }
 
   .layout-preview {
     width: 100%;
@@ -280,46 +311,48 @@
     gap: 2px;
     margin-bottom: 6px;
   }
-
   .layout-preview .cell {
-    background: var(--accent);
+    background: var(--champagne);
     border-radius: 2px;
-    opacity: 0.6;
+    opacity: 0.35;
   }
-
-  .layout-option.active .cell { opacity: 1; }
+  .layout-option.active .cell { opacity: 0.7; }
 
   .layout-name {
-    font-size: 10px;
-    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--champagne);
   }
+  .layout-option.active .layout-name { color: var(--slate); }
 
-  .layout-option.active .layout-name { color: var(--text); }
-
-  /* Preview area */
+  /* Live preview area */
   .preview-area {
     position: relative;
     width: 100%;
     aspect-ratio: 16/10;
-    background: #0a0d12;
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    background: rgba(28,28,30,0.03);
+    border: 1px solid rgba(28,28,30,0.08);
+    border-radius: 10px;
     overflow: hidden;
   }
 
   .preview-window {
     position: absolute;
-    border-radius: 3px;
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     transition: all 0.3s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
 
   .preview-titlebar {
     height: 14%;
     min-height: 4px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.15);
     display: flex;
     align-items: center;
     padding: 0 4px;
@@ -327,97 +360,74 @@
   }
 
   .preview-dot {
-    width: 3px;
-    height: 3px;
+    width: 3px; height: 3px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.3);
   }
 
-  .preview-body {
-    flex: 1;
-  }
+  .preview-body { flex: 1; }
 
   /* Command output */
   .command-output {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px 14px;
-    font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
-    font-size: 12px;
-    color: var(--accent-hover);
+    background: var(--obsidian);
+    border: 1px solid rgba(28,28,30,0.08);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(245,245,243,0.7);
     word-break: break-all;
-    line-height: 1.5;
+    line-height: 1.6;
     position: relative;
     cursor: pointer;
     transition: border-color 0.15s;
   }
-
-  .command-output:hover { border-color: var(--accent); }
+  .command-output:hover { border-color: var(--champagne); }
 
   .copy-hint {
     position: absolute;
-    top: 8px;
-    right: 10px;
-    font-size: 10px;
-    color: var(--text-muted);
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    top: 10px; right: 12px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: rgba(245,245,243,0.3);
     opacity: 0;
     transition: opacity 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
-
   .command-output:hover .copy-hint { opacity: 1; }
-
-  .command-output.copied .copy-hint {
-    opacity: 1;
-    color: #3fb950;
-  }
+  .command-output.copied .copy-hint { opacity: 1; color: var(--green); }
 
   .actions {
     display: flex;
     gap: 10px;
-    margin-top: 8px;
+    margin-top: 12px;
   }
-
-  .btn {
-    flex: 1;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
-  }
-
-  .btn:active { transform: scale(0.98); }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .btn-primary:hover { background: var(--accent-hover); }
-
-  .btn-secondary {
-    background: var(--surface-2);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .btn-secondary:hover { background: var(--border); }
+  .actions .btn { flex: 1; text-align: center; }
 </style>
 </head>
 <body>
 
-<h1>Multiple Terminals</h1>
-<p class="subtitle">Configure and launch color-coded terminal windows</p>
+<!-- ==THEME:NOISE_HTML== -->
+<svg class="noise-overlay" width="100%" height="100%">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>
+<!-- ==/THEME:NOISE_HTML== -->
 
-<div class="container">
+<div class="topbar">
+  <span class="topbar-brand">LITE TOOLS</span>
+  <span class="topbar-pill">multiple-terminals</span>
+</div>
+
+<div class="main-content">
+  <h1 class="page-title">Multiple Terminals</h1>
+  <p class="page-subtitle">Configure and launch color-coded terminal windows</p>
 
   <!-- Layout -->
   <div class="card">
-    <div class="card-title">Layout</div>
+    <div class="section-label">Layout</div>
     <div class="layout-options" id="layoutOptions">
       <div class="layout-option active" data-layout="side-by-side">
         <div class="layout-preview" style="grid-template-columns: 1fr 1fr 1fr;">
@@ -448,16 +458,16 @@
 
   <!-- Color Mode -->
   <div class="card">
-    <div class="card-title">Color Mode</div>
+    <div class="section-label">Color Mode</div>
     <div class="mode-options" id="modeOptions"></div>
   </div>
 
-  <!-- Count + Settings -->
+  <!-- Settings -->
   <div class="card">
-    <div class="card-title">Settings</div>
+    <div class="section-label">Settings</div>
     <div class="row">
       <div class="field">
-        <label>Windows</label>
+        <span class="field-label">Windows</span>
         <div class="count-control">
           <button class="count-btn" onclick="adjustCount(-1)">-</button>
           <div class="count-display" id="countDisplay">3</div>
@@ -465,7 +475,7 @@
         </div>
       </div>
       <div class="field">
-        <label>Theme Override</label>
+        <span class="field-label">Theme Override</span>
         <select id="themeSelect">
           <option value="">None (use color mode)</option>
           <option>Basic</option>
@@ -485,15 +495,15 @@
     </div>
     <div class="row">
       <div class="field">
-        <label>Commands (comma-separated)</label>
+        <span class="field-label">Commands (comma-separated)</span>
         <input type="text" id="commandsInput" placeholder="e.g. claude,htop,git log">
       </div>
     </div>
   </div>
 
-  <!-- Toggles -->
+  <!-- Options -->
   <div class="card">
-    <div class="card-title">Options</div>
+    <div class="section-label">Options</div>
     <div class="toggle-row">
       <div>
         <div class="toggle-label">Restyle Existing</div>
@@ -547,28 +557,35 @@
   </div>
 
   <!-- Preview -->
-  <div class="card">
-    <div class="card-title">Preview</div>
+  <div class="card card-champagne">
+    <div class="section-label">Preview</div>
     <div class="preview-area" id="previewArea"></div>
-  </div>
-
-  <!-- Command -->
-  <div class="card">
-    <div class="card-title">Command</div>
-    <div class="command-output" id="commandOutput" onclick="copyCommand()">
-      <span class="copy-hint" id="copyHint">Click to copy</span>
-      <span id="commandText"></span>
-    </div>
-    <div class="actions">
-      <button class="btn btn-secondary" onclick="copyCommand()">Copy</button>
-      <button class="btn btn-primary" onclick="runCommand()">Run</button>
-    </div>
   </div>
 
 </div>
 
+<!-- ==THEME:FOOTER_HTML== -->
+<div class="footer">
+  <span>Built by <a href="https://jgwillis.com" target="_blank">Joseph Willis</a></span>
+  <span class="footer-sep">|</span>
+  <a href="mailto:info@jgwillis.com">info@jgwillis.com</a>
+  <span class="footer-sep">|</span>
+  <div class="footer-socials">
+    <a href="https://instagram.com/aibyjgwillis" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://tiktok.com/@aibyjgwillis" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13a8.28 8.28 0 005.58 2.15V11.7a4.83 4.83 0 01-3.77-1.24V6.69h3.77z"/></svg>
+    </a>
+    <a href="https://youtube.com/@aibyjgwillis" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    </a>
+  </div>
+</div>
+<!-- ==/THEME:FOOTER_HTML== -->
+
 <script>
-const COLOR_MODES = {
+var COLOR_MODES = {
   ocean:  ["#0a2437","#0d344c","#124460","#1d5474","#2c5f80","#3a6a8c"],
   forest: ["#0a2414","#10351e","#1a442a","#245436","#306444","#3c7454"],
   sunset: ["#3a140c","#541c10","#6a2818","#7a3520","#8a442c","#985438"],
@@ -579,33 +596,33 @@ const COLOR_MODES = {
   cool:   ["#0a1438","#10204c","#182c60","#203a74","#2c4888","#38569c"],
 };
 
-const SCRIPT_PATH = "~/tools/plugins/lite-tools/skills/multiple-terminals/multiple-terminals.py";
+var SCRIPT_PATH = "~/tools/plugins/lite-tools/skills/multiple-terminals/multiple-terminals.py";
 
-let state = {
+var state = {
   layout: "side-by-side",
   mode: "ocean",
   count: 3,
 };
 
 function createEl(tag, className, textContent) {
-  const el = document.createElement(tag);
+  var el = document.createElement(tag);
   if (className) el.className = className;
   if (textContent) el.textContent = textContent;
   return el;
 }
 
-// Build color mode swatches
 function buildModeSwatches() {
-  const container = document.getElementById("modeOptions");
+  var container = document.getElementById("modeOptions");
   while (container.firstChild) container.removeChild(container.firstChild);
 
-  for (const [name, colors] of Object.entries(COLOR_MODES)) {
-    const div = createEl("div", "mode-swatch" + (name === state.mode ? " active" : ""));
+  Object.keys(COLOR_MODES).forEach(function(name) {
+    var colors = COLOR_MODES[name];
+    var div = createEl("div", "mode-swatch" + (name === state.mode ? " active" : ""));
     div.dataset.mode = name;
 
-    const swatchRow = createEl("div", "swatch-colors");
+    var swatchRow = createEl("div", "swatch-colors");
     colors.forEach(function(c) {
-      const span = createEl("span");
+      var span = createEl("span");
       span.style.background = c;
       swatchRow.appendChild(span);
     });
@@ -619,10 +636,9 @@ function buildModeSwatches() {
       update();
     });
     container.appendChild(div);
-  }
+  });
 }
 
-// Layout selection
 document.getElementById("layoutOptions").addEventListener("click", function(e) {
   var opt = e.target.closest(".layout-option");
   if (!opt) return;
@@ -632,30 +648,26 @@ document.getElementById("layoutOptions").addEventListener("click", function(e) {
   update();
 });
 
-// Count
 function adjustCount(delta) {
   state.count = Math.max(1, Math.min(6, state.count + delta));
   document.getElementById("countDisplay").textContent = state.count;
   update();
 }
 
-// Build preview
 function updatePreview() {
   var area = document.getElementById("previewArea");
   while (area.firstChild) area.removeChild(area.firstChild);
 
   var colors = COLOR_MODES[state.mode];
-  var count = state.count;
-  var rects = calculateLayout(count, state.layout);
+  var rects = calculateLayout(state.count, state.layout);
 
   rects.forEach(function(rect, i) {
     var win = createEl("div", "preview-window");
-    var bg = colors[i % colors.length];
     win.style.left = (rect[0] * 100) + "%";
     win.style.top = (rect[1] * 100) + "%";
     win.style.width = ((rect[2] - rect[0]) * 100) + "%";
     win.style.height = ((rect[3] - rect[1]) * 100) + "%";
-    win.style.background = bg;
+    win.style.background = colors[i % colors.length];
 
     var titlebar = createEl("div", "preview-titlebar");
     titlebar.appendChild(createEl("div", "preview-dot"));
@@ -706,7 +718,6 @@ function calculateLayout(count, layout) {
   return rects;
 }
 
-// Build command string
 function buildCommand() {
   var parts = ["python3", SCRIPT_PATH];
   parts.push("--count", state.count);
@@ -763,13 +774,11 @@ function update() {
   updateCommand();
 }
 
-// Listen to all inputs
 document.querySelectorAll("input, select").forEach(function(el) {
   el.addEventListener("change", update);
   el.addEventListener("input", update);
 });
 
-// Init
 buildModeSwatches();
 update();
 </script>

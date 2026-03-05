@@ -1043,10 +1043,25 @@ body {
 }
 /* ==/THEME:PAGE_TITLE== */
 
+/* ==THEME:CARDS== */
+.card {
+  background: white; border: 1px solid rgba(28,28,30,0.08);
+  border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
+}
+.card-champagne { background: rgba(90,125,150,0.04); border-color: rgba(90,125,150,0.12); }
+.card-amber { background: var(--amber-bg); border-color: rgba(184,134,11,0.15); }
+/* ==/THEME:CARDS== */
+
 .panel { display: none; }
 .panel.active { display: block; }
 .section { margin-bottom: 28px; }
-.section-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(28,28,30,0.4); margin-bottom: 10px; }
+/* ==THEME:SECTION_LABEL== */
+.section-label {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--champagne);
+  margin-bottom: 12px;
+}
+/* ==/THEME:SECTION_LABEL== */
 
 .path-row { display: flex; gap: 8px; align-items: center; }
 .path-input {
@@ -1379,11 +1394,12 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
 <!-- ==/THEME:NOISE_HTML== -->
 
 <div class="topbar">
-  <div class="topbar-brand">Folder Colors</div>
+  <span class="topbar-brand">LITE TOOLS</span>
   <div class="topbar-tabs">
     <button class="topbar-tab active" data-tab="manual">Manual</button>
     <button class="topbar-tab" data-tab="smart">Smart Auto-Color</button>
   </div>
+  <span class="topbar-pill">folder-colors</span>
 </div>
 
 <div class="welcome-banner" id="welcomeBanner" style="display:none;">
@@ -1399,7 +1415,7 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
   <div id="panel-manual" class="panel active">
 
     <!-- 1. Preview -->
-    <div class="section" style="text-align:center;">
+    <div class="card" style="text-align:center;">
       <div class="folder-preview" id="folderPreview">
         <img src="/api/folder-icon" class="folder-icon-img" id="folderIconImg" draggable="false">
         <div class="folder-tint-overlay" id="folderTintOverlay"></div>
@@ -1408,7 +1424,7 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
     </div>
 
     <!-- 2. Choose Colors -->
-    <div class="section">
+    <div class="card">
       <div class="section-label">Themes</div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
         <div class="themes" id="themes" style="margin-bottom:0;"></div>
@@ -1482,7 +1498,7 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
     </div>
 
     <!-- 2b. Apply To + Color by Depth (merged) -->
-    <div class="section">
+    <div class="card">
       <div class="section-label">Apply To</div>
       <div class="layer-tree" id="layerTree"></div>
       <div id="manualFolderList" class="tree-container" style="display:none; margin-top:10px;">
@@ -1504,7 +1520,7 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
 
   <!-- SMART -->
   <div id="panel-smart" class="panel">
-    <div class="section">
+    <div class="card">
       <div class="section-label">Parent Folder</div>
       <div class="path-row">
         <input type="text" class="path-input" id="smartPath" placeholder="~/Desktop" spellcheck="false" style="cursor:text;">
@@ -1523,7 +1539,7 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
       </div>
     </div>
 
-    <div class="section" id="smartResultsSection" style="display:none;">
+    <div class="card" id="smartResultsSection" style="display:none;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
         <div class="section-label" style="margin:0;">Folders Found <span id="folderCount" style="color:var(--champagne);"></span></div>
         <div style="display:flex;gap:8px;">
