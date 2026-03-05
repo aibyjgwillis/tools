@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "aibyjgwillis-tools",
+  "name": "aibyjgwillis",
   "description": "Free collection of useful Claude Code tools",
   "owner": {
     "name": "aibyjgwillis"
