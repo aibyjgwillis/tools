@@ -1440,11 +1440,10 @@ input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
     <div class="section">
       <div class="section-label">Apply To</div>
       <div class="layer-tree" id="layerTree"></div>
-      <div id="totalFolderCount" style="display:none; margin-top:8px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--champagne); font-weight:500; text-align:right;"></div>
-
       <div id="manualFolderList" class="tree-container" style="display:none; margin-top:10px;">
         <div class="manual-list-header">
           <span class="manual-list-title" id="manualListTitle">Folders</span>
+          <span id="totalFolderCount" style="display:none; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--champagne); font-weight:500;"></span>
         </div>
         <div id="manualFolderItems"></div>
       </div>
