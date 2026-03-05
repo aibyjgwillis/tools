@@ -771,11 +771,6 @@
     </div>
   </div>
   <div class="save-indicator" id="saveIndicator">Saved</div>
-  <div class="editing-bar" id="editingBar">
-    <span class="bar-label">Modifying <span class="bar-name" id="editingBarName"></span></span>
-    <button class="bar-btn bar-save" onclick="savePreset()">Save</button>
-    <button class="bar-btn bar-dismiss" onclick="dismissPreset()">Discard</button>
-  </div>
 
   <!-- Presets -->
   <div class="card" style="position:relative;">
@@ -2160,5 +2155,10 @@ renderPresets();
 update();
 detectServer();
 </script>
+<div class="editing-bar" id="editingBar">
+  <span class="bar-label">Modifying <span class="bar-name" id="editingBarName"></span></span>
+  <button class="bar-btn bar-save" onclick="savePreset()">Save</button>
+  <button class="bar-btn bar-dismiss" onclick="dismissPreset()">Discard</button>
+</div>
 </body>
 </html>
