@@ -1560,10 +1560,11 @@ function getLayerLabel(depth) {
     }
     return '/';
   }
-  if (depth === 0) return 'Level 1';
-  if (depth === 1) return 'Level 2';
-  if (depth === 2) return 'Level 3';
-  return 'Level ' + (depth + 1);
+  if (depth === 0) return 'Top-level folders';
+  if (depth === 1) return 'Subfolders';
+  if (depth === 2) return 'Sub-subfolders';
+  if (depth === 3) return 'Level 4 deep';
+  return 'Level ' + (depth + 1) + ' deep';
 }
 
 function getLayerSublabelForRow(depth) {
